@@ -1,0 +1,2 @@
+geopandas>=0.14
+requests>=2.31

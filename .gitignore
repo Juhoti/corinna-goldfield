@@ -1,0 +1,10 @@
+# downloaded data + caches (large, regenerable)
+work/
+corinna_tenure/
+*.gpkg
+
+# script output
+corinna_result.geojson
+
+__pycache__/
+.DS_Store

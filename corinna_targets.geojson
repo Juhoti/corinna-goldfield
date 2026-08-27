@@ -1,0 +1,354 @@
+{
+ "type": "FeatureCollection",
+ "features": [
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     145.18716,
+     -41.63194
+    ]
+   },
+   "properties": {
+    "name": "Rocky River",
+    "grid_ref": "CP49008950",
+    "tier": 1,
+    "lead": "reworked",
+    "yield": "2 largest state nuggets 7.6+4.4kg (McGinty 1883)",
+    "history": "Long Plains rush spillover; away from mine (E) = better tenure odds",
+    "approx": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     145.18609,
+     -41.62742
+    ]
+   },
+   "properties": {
+    "name": "Whyte River",
+    "grid_ref": "CP48909000",
+    "tier": 1,
+    "lead": null,
+    "yield": "5.8kg recorded 1901-38",
+    "history": "Long working life to 1938; osmiridium-rich system; away from mine",
+    "approx": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     145.16477,
+     -42.41512
+    ]
+   },
+   "properties": {
+    "name": "Main Rivulet",
+    "grid_ref": "CP49000250",
+    "tier": 1,
+    "lead": "reworked",
+    "yield": "600-900kg EST (Smith 1897) - field's richest",
+    "history": "GRID REF AMBIGUOUS in source - treat position as approximate",
+    "approx": true
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     145.16115,
+     -41.61802
+    ]
+   },
+   "properties": {
+    "name": "Browns Plains / Long Plains",
+    "grid_ref": "CP46809100",
+    "tier": 1,
+    "lead": "source",
+    "yield": "~190kg EST; 4000oz coarse gold (Peevor/Johnson)",
+    "history": "Jack Brown & Ah Chow 1878 first strike; THE Tertiary lead source ground",
+    "approx": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     145.09354,
+     -41.63133
+    ]
+   },
+   "properties": {
+    "name": "Middleton Creek",
+    "grid_ref": "CP41208940",
+    "tier": 1,
+    "lead": "reworked",
+    "yield": "7.9kg rec 1935-41; 1.2kg ~1990 (most recent)",
+    "history": "Middleton & Tengdahl 1879, 250 diggers; Savage R tributary - CLOSE TO MINE/RESERVE",
+    "approx": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     145.17744,
+     -41.67863
+    ]
+   },
+   "properties": {
+    "name": "Paradise River",
+    "grid_ref": "CP48308430",
+    "tier": 2,
+    "lead": null,
+    "yield": "nuggets 1-7.5oz",
+    "history": "1879 rush; southernmost = furthest from mine, best tenure odds",
+    "approx": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     145.14431,
+     -41.66098
+    ]
+   },
+   "properties": {
+    "name": "Nancy Creek",
+    "grid_ref": "CP45508620",
+    "tier": 2,
+    "lead": null,
+    "yield": "1879 cluster",
+    "history": "named by Slaters (female-name theme); SE field",
+    "approx": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     145.15941,
+     -41.67077
+    ]
+   },
+   "properties": {
+    "name": "Lucy Creek",
+    "grid_ref": "CP46788514",
+    "tier": 2,
+    "lead": null,
+    "yield": "porphyry Cu-Au at Lucy Spur",
+    "history": "Lucy Spur mine at HEAD of Lucy Ck (Spurr's reef claim)",
+    "approx": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     145.14214,
+     -41.65284
+    ]
+   },
+   "properties": {
+    "name": "Frenchmans Creek",
+    "grid_ref": "CP45308710",
+    "tier": 2,
+    "lead": "reworked?",
+    "yield": "named working",
+    "history": "KEY: named for St Dizier who 'chased gold HIGH ABOVE the middle reaches' = lead-remnant signal",
+    "approx": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     145.07834,
+     -41.61757
+    ]
+   },
+   "properties": {
+    "name": "Savage River (N/S/Dredge)",
+    "grid_ref": "CP39909090",
+    "tier": 2,
+    "lead": null,
+    "yield": "recent shapely nuggets",
+    "history": "1876 Sprent found iron+osmiridium here; ON MINE/RESERVE - expect restricted",
+    "approx": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     145.07389,
+     -41.60578
+    ]
+   },
+   "properties": {
+    "name": "Mt Donaldson",
+    "grid_ref": "CP39509220",
+    "tier": 2,
+    "lead": null,
+    "yield": "named working",
+    "history": "N end; Donaldson Inn (Job Savage) at river mouth",
+    "approx": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     145.1151,
+     -41.61232
+    ]
+   },
+   "properties": {
+    "name": "Brookside Workings",
+    "grid_ref": "CP42959155",
+    "tier": 2,
+    "lead": null,
+    "yield": "named working",
+    "history": "central field",
+    "approx": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     145.06838,
+     -41.58948
+    ]
+   },
+   "properties": {
+    "name": "Sabbath (Sunday) Creek",
+    "grid_ref": "CP39009400",
+    "tier": 3,
+    "lead": "reworked?",
+    "yield": "rushed after first creeks (1879)",
+    "history": "UPSTREAM Donaldson tributary; 'next to be rushed' after main creeks - less worked",
+    "approx": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     145.16296,
+     -41.59643
+    ]
+   },
+   "properties": {
+    "name": "Donnelly Creek",
+    "grid_ref": "CP46909340",
+    "tier": 3,
+    "lead": null,
+    "yield": "minor",
+    "history": "UPSTREAM (N); Thureau 1881a listed - little modern data",
+    "approx": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     145.1797,
+     -41.5985
+    ]
+   },
+   "properties": {
+    "name": "Timbs Creek",
+    "grid_ref": "CP48309320",
+    "tier": 3,
+    "lead": null,
+    "yield": "minor",
+    "history": "UPSTREAM (N of Whyte); Thureau 1881a - little modern data",
+    "approx": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     145.1735,
+     -41.60561
+    ]
+   },
+   "properties": {
+    "name": "Eight Mile Creek",
+    "grid_ref": "CP47809240",
+    "tier": 3,
+    "lead": null,
+    "yield": "minor",
+    "history": "UPSTREAM; Rio Tinto 1957 fieldwork only",
+    "approx": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     145.10301,
+     -41.63599
+    ]
+   },
+   "properties": {
+    "name": "Sailor Creek",
+    "grid_ref": "CP42008890",
+    "tier": 3,
+    "lead": null,
+    "yield": "minor",
+    "history": "Whyte tributary (named for 'Sailor Jack' Neul); upstream, little data",
+    "approx": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": null,
+   "properties": {
+    "name": "Timbs/Longback (The Badger)",
+    "grid_ref": null,
+    "tier": 3,
+    "lead": null,
+    "yield": "rushed 1879",
+    "history": "Longback Ck (hist. 'The Badger') - rushed early, position uncertain, NOT in modern appendix",
+    "approx": true
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": null,
+   "properties": {
+    "name": "Hangmans Creek",
+    "grid_ref": null,
+    "tier": 3,
+    "lead": null,
+    "yield": "30 men working 1880",
+    "history": "~15km upstream of Pieman stores; hist. 'Sydney Toms Ck'; NOT in modern appendix - pure archival lead",
+    "approx": true
+   }
+  }
+ ]
+}
