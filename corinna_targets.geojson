@@ -44,8 +44,8 @@
    "geometry": {
     "type": "Point",
     "coordinates": [
-     145.1777,
-     -41.5307
+     145.2004,
+     -41.5087
     ]
    },
    "properties": {
@@ -54,7 +54,7 @@
     "tier": 1,
     "lead": "reworked",
     "yield": "600-900kg EST (Smith 1897) - field's richest",
-    "history": "GRID REF AMBIGUOUS in source - treat position as approximate | position re-derived from LIST hydrography centreline 2026-08 (source grid ref was ambiguous and plotted ~87km S of the field)",
+    "history": "GRID REF AMBIGUOUS in source - treat position as approximate | position re-derived from LIST hydrography centreline 2026-08 (source grid ref was ambiguous and plotted ~87km S of the field) | re-pinned to MRT Mineral Occurrences 'Main Rivulet A/B' workings at Golden Ridge (surveyed, acc 200-500m); creek centreline midpoint was ~2km downstream",
     "approx": true
    }
   },
@@ -234,8 +234,8 @@
    "geometry": {
     "type": "Point",
     "coordinates": [
-     145.06838,
-     -41.58948
+     145.0817,
+     -41.5907
     ]
    },
    "properties": {
@@ -244,7 +244,7 @@
     "tier": 3,
     "lead": "reworked?",
     "yield": "rushed after first creeks (1879)",
-    "history": "UPSTREAM Donaldson tributary; 'next to be rushed' after main creeks - less worked",
+    "history": "UPSTREAM Donaldson tributary; 'next to be rushed' after main creeks - less worked | re-pinned to MRT Mineral Occurrences surveyed position (\u00b1100m)",
     "approx": false
    }
   },
@@ -272,8 +272,8 @@
    "geometry": {
     "type": "Point",
     "coordinates": [
-     145.1797,
-     -41.5985
+     145.1813,
+     -41.5906
     ]
    },
    "properties": {
@@ -282,7 +282,7 @@
     "tier": 3,
     "lead": null,
     "yield": "minor",
-    "history": "UPSTREAM (N of Whyte); Thureau 1881a - little modern data",
+    "history": "UPSTREAM (N of Whyte); Thureau 1881a - little modern data | re-pinned to MRT Mineral Occurrences surveyed position (\u00b1100m)",
     "approx": false
    }
   },

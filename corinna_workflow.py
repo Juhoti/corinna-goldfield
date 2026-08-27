@@ -62,6 +62,17 @@ LIST_REST = "https://services.thelist.tas.gov.au/arcgis/rest/services"
 GEOLOGY_LAYER = f"{LIST_REST}/Public/GeologicalAndSoils/MapServer/14"      # Geological Polygons 25K
 RESERVES_LAYER = f"{LIST_REST}/Public/CadastreAndAdministrative/MapServer/29"  # Tasmanian Reserve Estate
 
+# MRT Mineral Occurrences: every recorded working/deposit in the state, with
+# surveyed positions (LOC_ACC in metres — mostly 50-200 m, better than our
+# converted 1880s grid refs).
+OCCURRENCES_ZIP = ("https://www.mrt.tas.gov.au/mrtdoc/public_files/"
+                   "Mineral_Occurrences_Shapefile.zip")
+GOLD_PATTERN = "Gold|Osmium|Osmiridium|Platinoids"
+# A recorded working within this distance of a target counts as "at" it; an
+# occurrence further than this from EVERY target is reported as a candidate
+# the history pack missed.
+NEAR_WORKINGS_M = 750
+
 # What counts as deep-lead material in the 25K schema. Verified against the
 # live layer (2026-08): the lead units around Corinna are Tsgs / Tss / Tsgra
 # ("interbedded siliceous gravel, quartz sand and clay", "rounded and angular
@@ -158,6 +169,42 @@ def fetch_list_layer(layer_url, bbox, cache_name, refresh=False):
     return gdf
 
 
+def fetch_occurrences(bbox, refresh=False):
+    """MRT Mineral Occurrences (statewide zip, cached), clipped to bbox and
+    filtered to gold / osmiridium. Keeps lon/lat columns for reporting."""
+    WORK.mkdir(exist_ok=True)
+    cache = WORK / "occurrences.gpkg"
+    if cache.exists() and not refresh:
+        print(f"[cache] {cache.name}")
+        occ = gpd.read_file(cache)
+    else:
+        print(f"[download] {OCCURRENCES_ZIP}")
+        try:
+            r = requests.get(OCCURRENCES_ZIP, timeout=300)
+            r.raise_for_status()
+            zf = zipfile.ZipFile(io.BytesIO(r.content))
+        except Exception as e:
+            print(f"  !! occurrences download failed: {e}")
+            return None
+        shp = next((n for n in zf.namelist() if n.lower().endswith(".shp")), None)
+        if not shp:
+            print("  !! no .shp inside")
+            return None
+        zf.extractall(WORK / "occurrences_raw")
+        occ = gpd.read_file(WORK / "occurrences_raw" / shp)
+        occ.to_file(cache, driver="GPKG")
+        print(f"  ok: {len(occ)} occurrences statewide -> {cache.name}")
+    occ = occ.to_crs("EPSG:4326")
+    occ = occ.cx[bbox[0]:bbox[2], bbox[1]:bbox[3]]
+    au = occ[occ["COMMODITYS"].astype(str).str.contains(
+        GOLD_PATTERN, case=False, na=False)].copy()
+    au["lon"] = au.geometry.x.round(4)
+    au["lat"] = au.geometry.y.round(4)
+    print(f"[workings] {len(au)} recorded gold/Os-Ir workings in the field "
+          f"(of {len(occ)} occurrences in bbox)")
+    return au
+
+
 def flag_lead(geol):
     """Subset of 25K geology polygons that are Tertiary lead material."""
     if geol is None:
@@ -215,8 +262,8 @@ def _tenement_label(row):
     return " — ".join(b for b in bits if b)
 
 
-def assess(tgt, ten, lead, reserves):
-    """Attach tenure / lead / reserve columns to the target GeoDataFrame."""
+def assess(tgt, ten, lead, reserves, occ=None):
+    """Attach tenure / lead / reserve / workings columns to the targets."""
     tgt = tgt.copy()
     tgt["tenure"] = "unknown"
     tgt["tenure_dist_m"] = None
@@ -225,6 +272,9 @@ def assess(tgt, ten, lead, reserves):
     tgt["lead_dist_m"] = None
     tgt["reserve"] = None
     tgt["reserve_mining"] = None
+    tgt["workings_near"] = None      # recorded workings within NEAR_WORKINGS_M
+    tgt["nearest_working"] = None
+    tgt["nearest_working_m"] = None
     for i, r in tgt.iterrows():
         g = r.geometry
         if g is None:
@@ -250,7 +300,50 @@ def assess(tgt, ten, lead, reserves):
                 row = inres.iloc[0]
                 tgt.at[i, "reserve"] = _text(row, "RES_NAME", "RES_CLASS") or "reserve"
                 tgt.at[i, "reserve_mining"] = _text(row, "MINING") or "unknown"
+        if occ is not None and len(occ):
+            d = occ.distance(g)
+            j = d.idxmin()
+            tgt.at[i, "nearest_working"] = _text(occ.loc[j], "NAME") or "unnamed"
+            tgt.at[i, "nearest_working_m"] = round(float(d.min()))
+            tgt.at[i, "workings_near"] = int((d <= NEAR_WORKINGS_M).sum())
     return tgt
+
+
+def new_candidates(occ, tgt):
+    """Recorded workings further than NEAR_WORKINGS_M from every target —
+    ground the history pack never surfaced. Returns (named, n_unnamed)."""
+    if occ is None or not len(occ):
+        return [], 0
+    pts = tgt[tgt.geometry.notna()]
+    named, unnamed = [], 0
+    for _, o in occ.iterrows():
+        d = pts.distance(o.geometry).min()
+        if d <= NEAR_WORKINGS_M:
+            continue
+        if _text(o, "NAME") and o["NAME"] != "Unnamed":
+            named.append((o, d))
+        else:
+            unnamed += 1
+    named.sort(key=lambda t: -t[1])
+    return named, unnamed
+
+
+def print_candidates(named, unnamed):
+    if not named and not unnamed:
+        return
+    print("\n" + "=" * 84)
+    print(f"RECORDED WORKINGS >{NEAR_WORKINGS_M}m FROM EVERY TARGET — "
+          "ground the history pack missed")
+    print("(source: MRT Mineral Occurrences; surveyed positions, LOC_ACC in metres)")
+    print("=" * 84)
+    for o, d in named:
+        comm = (_text(o, "COMMODITYS") or "")[:26]
+        status = (_text(o, "STATUS") or "")[:12]
+        acc = f"±{int(o['LOC_ACC'])}m" if pd.notna(o.get("LOC_ACC")) else ""
+        print(f"  {o['NAME'][:34]:34s} {comm:26s} {status:12s} "
+              f"{o['lat']:.4f},{o['lon']:.4f} {acc:>7s} ({d/1000:.1f}km from targets)")
+    if unnamed:
+        print(f"  ... plus {unnamed} unnamed occurrences — see corinna_workings.geojson")
 
 
 def print_report(tgt, have_lead, have_reserves):
@@ -284,6 +377,10 @@ def print_report(tgt, have_lead, have_reserves):
         else:
             geo_flag = f"geology layer unavailable — use stated lead field: {r['lead']}"
         print(f"    lead  : {geo_flag}")
+        # recorded workings
+        if r["workings_near"] is not None:
+            print(f"    works : {r['workings_near']} recorded within {NEAR_WORKINGS_M}m"
+                  f" — nearest: {r['nearest_working']} ({r['nearest_working_m']}m)")
         # reserve
         if not have_reserves:
             res_flag = "reserve layer unavailable — CHECK LISTmap"
@@ -323,6 +420,7 @@ def main(argv=None):
     ten = fetch_tenements(args.refresh)
     geol = fetch_list_layer(GEOLOGY_LAYER, bbox, "geology25k", args.refresh)
     reserves = fetch_list_layer(RESERVES_LAYER, bbox, "reserves", args.refresh)
+    occ = fetch_occurrences(bbox, args.refresh)
     lead = flag_lead(geol)
 
     if ten is not None:
@@ -331,14 +429,24 @@ def main(argv=None):
         lead = lead.to_crs(MGA55)
     if reserves is not None:
         reserves = reserves.to_crs(MGA55)
+    if occ is not None:
+        occ = occ.to_crs(MGA55)
 
-    result = assess(tgt, ten, lead, reserves)
+    result = assess(tgt, ten, lead, reserves, occ)
     print_report(result, have_lead=lead is not None, have_reserves=reserves is not None)
+    named, unnamed = new_candidates(occ, tgt)
+    print_candidates(named, unnamed)
 
     out = HERE / "corinna_result.geojson"
     result.to_crs("EPSG:4326").to_file(out, driver="GeoJSON")
     print(f"\n[ok] {out.name} written — targets WITH the computed tenure/lead/reserve")
     print("     columns. Load in QGIS over a topo/satellite basemap and style by them.")
+    if occ is not None and len(occ):
+        wout = HERE / "corinna_workings.geojson"
+        cols = [c for c in ("NAME", "COMMODITYS", "TYPE", "STATUS", "DEP_SIZE",
+                            "LOC_ACC", "GENETIC", "REF", "geometry") if c in occ.columns]
+        occ[cols].to_crs("EPSG:4326").to_file(wout, driver="GeoJSON")
+        print(f"[ok] {wout.name} written — all {len(occ)} recorded gold/Os-Ir workings.")
 
 
 if __name__ == "__main__":

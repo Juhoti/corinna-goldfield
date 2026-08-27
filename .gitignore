@@ -5,6 +5,7 @@ corinna_tenure/
 
 # script output
 corinna_result.geojson
+corinna_workings.geojson
 
 __pycache__/
 .DS_Store

@@ -65,6 +65,33 @@ def test_assess_flags(targets):
     assert r2["on_lead"] is None
 
 
+def occ_frame():
+    return gpd.GeoDataFrame(
+        {"NAME": ["Old Adit", "Unnamed", "Far Working"],
+         "COMMODITYS": ["Gold", "Gold", "Gold"],
+         "STATUS": ["Abandoned", "Mineralised", "Mineralised"],
+         "LOC_ACC": [100.0, 100.0, 100.0],
+         "lon": [145.1, 145.1, 145.2], "lat": [-41.6, -41.6, -41.7]},
+        geometry=[Point(200, 0), Point(600, 0), Point(20000, 0)],
+        crs=MGA55)
+
+
+def test_assess_workings(targets):
+    out = cw.assess(targets, None, None, None, occ_frame())
+    r0 = out.iloc[0]  # at origin: two workings within 750m
+    assert r0["workings_near"] == 2
+    assert r0["nearest_working"] == "Old Adit"
+    assert r0["nearest_working_m"] == 200
+
+
+def test_new_candidates(targets):
+    named, unnamed = cw.new_candidates(occ_frame(), targets)
+    # only Far Working is >750m from every target (clear-near target is at x=5000)
+    assert [o["NAME"] for o, _ in named] == ["Far Working"]
+    assert unnamed == 0
+    assert named[0][1] == 15000  # 20000 - 5000 from the nearest target
+
+
 def test_assess_without_layers(targets):
     out = cw.assess(targets, None, None, None)
     assert out.iloc[0]["tenure"] == "unknown"

@@ -9,6 +9,7 @@ layers to find unworked, lead-fed ground on open country.
 | Current Mineral Tenements | MRT statewide shapefile (daily) | is the creek inside a lease / EL / unavailable area? |
 | Geological Polygons 25K | LIST ArcGIS REST (bbox-clipped) | does it sit on mapped Tertiary lead gravel (`Tsgs`/`Tss`/`Tsgra`)? |
 | Tasmanian Reserve Estate | LIST ArcGIS REST (bbox-clipped) | which reserve is it in, and is mining *available under the MRDA* there? |
+| Mineral Occurrences | MRT statewide shapefile | which *recorded* workings sit near each target (surveyed, ±50–200 m) — and which gold workings the history pack missed entirely |
 
 The **sweet spot** the tool surfaces: tier-3 (upstream) target + on/near
 Tertiary lead + clear of tenements + not in a mining-unavailable reserve.
@@ -55,6 +56,23 @@ Each target gets:
 - `on_lead` / `lead_dist_m` — on mapped Tertiary lead, or metres to it
 - `reserve` / `reserve_mining` — reserve name and its MRDA mining status
   (e.g. Pieman River State Reserve is **Not available under the MRDA**)
+- `workings_near` / `nearest_working` — recorded MRT workings within 750 m
+
+After the per-target report comes the inverse question: **recorded gold
+workings >750 m from every target** — creeks the 1880s reports never named
+(Chinamen, Big Duffer, Doodie, Jansen, Nonesuch...) plus the whole Golden
+Ridge tunnel field. All of them land in `corinna_workings.geojson` for QGIS.
+
+## QGIS extras
+
+The LIST also serves raster layers worth loading under the results
+(QGIS → ArcGIS REST Server connection to
+`https://services.thelist.tas.gov.au/arcgis/rest/services`):
+- `Basemaps/Topographic`, `Basemaps/Hillshade`, `Basemaps/Orthophoto` — base
+- `Raster/AerialPhoto1941_50` … `Raster/AerialPhoto1991_2000` — the field
+  photographed **before the rainforest closed back over the workings**; the
+  1940s–60s runs show hydraulic scars and races invisible under today's canopy
+- `Raster/SprentsBook`, `Raster/TownGrantCharts` — 19th-century survey charts
 
 ## Data provenance notes
 
