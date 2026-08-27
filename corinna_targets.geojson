@@ -44,8 +44,8 @@
    "geometry": {
     "type": "Point",
     "coordinates": [
-     145.16477,
-     -42.41512
+     145.1777,
+     -41.5307
     ]
    },
    "properties": {
@@ -54,7 +54,7 @@
     "tier": 1,
     "lead": "reworked",
     "yield": "600-900kg EST (Smith 1897) - field's richest",
-    "history": "GRID REF AMBIGUOUS in source - treat position as approximate",
+    "history": "GRID REF AMBIGUOUS in source - treat position as approximate | position re-derived from LIST hydrography centreline 2026-08 (source grid ref was ambiguous and plotted ~87km S of the field)",
     "approx": true
    }
   },
@@ -326,27 +326,39 @@
   },
   {
    "type": "Feature",
-   "geometry": null,
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     145.1186,
+     -41.5425
+    ]
+   },
    "properties": {
     "name": "Timbs/Longback (The Badger)",
     "grid_ref": null,
     "tier": 3,
     "lead": null,
     "yield": "rushed 1879",
-    "history": "Longback Ck (hist. 'The Badger') - rushed early, position uncertain, NOT in modern appendix",
+    "history": "Longback Ck (hist. 'The Badger') - rushed early, position uncertain, NOT in modern appendix | position = Longback Creek centreline midpoint, LIST hydrography 2026-08 (name survives on modern maps)",
     "approx": true
    }
   },
   {
    "type": "Feature",
-   "geometry": null,
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     145.1061,
+     -41.7157
+    ]
+   },
    "properties": {
     "name": "Hangmans Creek",
     "grid_ref": null,
     "tier": 3,
     "lead": null,
     "yield": "30 men working 1880",
-    "history": "~15km upstream of Pieman stores; hist. 'Sydney Toms Ck'; NOT in modern appendix - pure archival lead",
+    "history": "~15km upstream of Pieman stores; hist. 'Sydney Toms Ck'; NOT in modern appendix - pure archival lead | position = creek centreline midpoint, LIST hydrography 2026-08 (name survives on modern maps)",
     "approx": true
    }
   }

@@ -23,6 +23,15 @@ Tertiary lead + clear of tenements + not in a mining-unavailable reserve.
 - **`HISTORY_SOURCEPACK.md`** — verified links to the 1880s inspectors' reports
   and modern mining histories, annotated with the upstream detail to mine and
   how to cross-reference it against the map.
+- **`locate_creeks.py`** — looks up creek names in the LIST hydrography layer.
+  The 1880s reports name creeks missing from every modern mining appendix;
+  many of those names survive on today's maps. This is how Hangmans Creek and
+  Longback Creek went from "archival-only" to real coordinates, and how the
+  Main Rivulet position was corrected (see below).
+- **`trove_links.py`** — per-target Trove newspaper searches (Tasmanian
+  papers, 1870-1949). The Mercury and the Zeehan & Dundas Herald covered the
+  Pieman rushes claim-by-claim. No API key needed for the URL mode; with a
+  free key in `TROVE_API_KEY`, `--api` prints article counts and first hits.
 - **`corinna_gold_tenure.py`** — the simpler earlier script (tenement check
   only); superseded by `corinna_workflow.py` but kept as a lightweight fallback.
 - **`tests/`** — offline tests (synthetic geometry + target-file validation).
@@ -47,12 +56,15 @@ Each target gets:
 - `reserve` / `reserve_mining` — reserve name and its MRDA mining status
   (e.g. Pieman River State Reserve is **Not available under the MRDA**)
 
-## Known data issues
+## Data provenance notes
 
-- **Main Rivulet** — the field's richest target (600–900 kg est.) — has an
-  ambiguous grid reference in the source and currently plots ~87 km south of
-  the field. The script flags it loudly and excludes it from the download
-  bounding box. It needs re-locating on LISTmap; until then its row is noise.
+- **Main Rivulet** — the field's richest target (600–900 kg est.) — had an
+  ambiguous grid reference in the source that plotted ~87 km south of the
+  field. Its position (and Hangmans/Longback's, formerly archival-only) is now
+  the creek's centreline midpoint from the LIST hydrography layer. All three
+  are marked `approx` — the creek is right, the exact reach is yours to walk.
+- The outlier sanity check in `corinna_workflow.py` stays on guard: any target
+  plotting >25 km from the field median is flagged loudly.
 
 ## The one rule
 

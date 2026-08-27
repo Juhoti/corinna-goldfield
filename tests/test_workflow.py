@@ -138,11 +138,44 @@ def test_targets_within_tasmania():
     assert pts.geometry.y.between(-44, -40).all()
 
 
-def test_known_outlier_is_flagged():
-    """Main Rivulet's grid ref is ambiguous in the source and currently plots
-    ~87 km south of the field. Until it's re-located on LISTmap, the sanity
-    check must keep flagging it. When the coordinate is fixed, flip this test
-    to assert `bad == []`."""
+def test_no_outliers_in_targets():
+    """Main Rivulet's ambiguous source grid ref used to plot ~87 km south of
+    the field; its position (and Hangmans/Longback's) is now derived from the
+    LIST hydrography centrelines, so no target should trip the sanity check."""
     tgt = gpd.read_file(TARGET_FILE).to_crs(MGA55)
-    bad = cw.flag_outliers(tgt)
-    assert [n for n, _ in bad] == ["Main Rivulet"]
+    assert cw.flag_outliers(tgt) == []
+
+
+def test_all_targets_have_coordinates():
+    """The formerly archival-only creeks were located via LIST hydrography."""
+    tgt = gpd.read_file(TARGET_FILE)
+    assert tgt.geometry.notna().all()
+
+
+def test_trove_variants():
+    import trove_links as tl
+    assert tl.variants("Rocky River") == ["Rocky River"]
+    assert tl.variants("Timbs/Longback (The Badger)") == \
+        ["Timbs", "Longback", "The Badger"]
+    assert "Nancy Creek" in tl.variants("Nancy Creek")
+
+
+def test_trove_search_url_shape():
+    import trove_links as tl
+    url = tl.search_url('"Rocky River" gold')
+    assert url.startswith("https://trove.nla.gov.au/search/category/newspapers?")
+    assert "l-state=Tasmania" in url
+    assert "keyword=%22Rocky+River%22+gold&" in url
+
+
+def test_locate_creeks_summarise():
+    import locate_creeks as lc
+    feats = [
+        {"geometry": {"type": "LineString",
+                      "coordinates": [[145.0, -41.5], [145.2, -41.7]]}},
+        {"geometry": {"type": "MultiLineString",
+                      "coordinates": [[[145.1, -41.6], [145.3, -41.8]]]}},
+    ]
+    cx, cy, ext = lc.summarise(feats)
+    assert abs(cx - 145.15) < 1e-9
+    assert ext == (145.0, -41.8, 145.3, -41.5)

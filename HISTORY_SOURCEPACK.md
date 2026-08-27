@@ -96,6 +96,22 @@ Heritage Assessment* — Archaeological Survey Report 97/01, MRT.
 
 ---
 
+## TIER C — newspapers (the week-by-week record)
+
+The Tasmanian papers covered the Pieman rushes in real time: which creek was
+rushed when, claim disputes, escort figures, store locations. The Mercury
+(Hobart), Launceston Examiner, and later the Zeehan & Dundas Herald are all
+digitised on Trove. Run `python3 trove_links.py` for ready-made searches per
+target creek (no account needed), or get a free API key and run
+`TROVE_API_KEY=xxx python3 trove_links.py --api` for article counts and first
+hits sorted oldest-first — the 1879-1885 hits are the rush itself.
+
+What to mine from them: distances and directions in prose ("15 km upstream
+from the Pieman stores"), which stores/landings creeks were measured from,
+and names that never made the official reports. Cross-reference against
+`locate_creeks.py` — if a newspaper names a creek, the name may survive in
+the LIST hydrography layer.
+
 ## HOW TO CROSS-REFERENCE (the actual method)
 
 1. Run `corinna_workflow.py` → get each target's lead + tenure status, and the
