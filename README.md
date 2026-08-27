@@ -59,9 +59,12 @@ Each target gets:
 - `workings_near` / `nearest_working` — recorded MRT workings within 750 m
 
 After the per-target report comes the inverse question: **recorded gold
-workings >750 m from every target** — creeks the 1880s reports never named
-(Chinamen, Big Duffer, Doodie, Jansen, Nonesuch...) plus the whole Golden
-Ridge tunnel field. All of them land in `corinna_workings.geojson` for QGIS.
+workings >750 m from every target** — creeks the 1880s reports never named,
+plus the whole Golden Ridge tunnel field. Each one gets the same
+tenure/lead/reserve tests as the targets and is ranked by access, which is
+how Nonesuch Creek (open ground, ON mapped lead, surveyed ±100 m) surfaced.
+All 111 workings land in `corinna_workings.geojson` with their assessment
+columns, ready to style in QGIS.
 
 ## QGIS extras
 

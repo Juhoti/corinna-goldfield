@@ -328,20 +328,36 @@ def new_candidates(occ, tgt):
     return named, unnamed
 
 
+def _tenure_short(o):
+    """One-word access flag for a working: OPEN / released / tenement id."""
+    if o.get("tenure") == "clear":
+        return "OPEN"
+    tens = str(o.get("tenements") or "")
+    if "Release Area" in tens:
+        return "released"
+    return tens.split(" — ")[0] if tens else "?"
+
+
 def print_candidates(named, unnamed):
     if not named and not unnamed:
         return
     print("\n" + "=" * 84)
     print(f"RECORDED WORKINGS >{NEAR_WORKINGS_M}m FROM EVERY TARGET — "
           "ground the history pack missed")
-    print("(source: MRT Mineral Occurrences; surveyed positions, LOC_ACC in metres)")
+    print("(MRT Mineral Occurrences, surveyed; tenure/lead tested like the targets)")
     print("=" * 84)
+    rank = {"OPEN": 0, "released": 1}
+    named = sorted(named, key=lambda t: (rank.get(_tenure_short(t[0]), 2),
+                                         str(t[0]["NAME"])))
     for o, d in named:
-        comm = (_text(o, "COMMODITYS") or "")[:26]
-        status = (_text(o, "STATUS") or "")[:12]
         acc = f"±{int(o['LOC_ACC'])}m" if pd.notna(o.get("LOC_ACC")) else ""
-        print(f"  {o['NAME'][:34]:34s} {comm:26s} {status:12s} "
-              f"{o['lat']:.4f},{o['lon']:.4f} {acc:>7s} ({d/1000:.1f}km from targets)")
+        lead = (f"lead ~{o['lead_dist_m']}m" if o.get("lead_dist_m") is not None
+                else "")
+        res = ""
+        if "not available" in str(o.get("reserve_mining") or "").lower():
+            res = "  ⚠ NO-MINING RESERVE"
+        print(f"  {str(o['NAME'])[:32]:32s} {_tenure_short(o):10s} "
+              f"{o['lat']:.4f},{o['lon']:.4f} {acc:>7s}  {lead:>12s}{res}")
     if unnamed:
         print(f"  ... plus {unnamed} unnamed occurrences — see corinna_workings.geojson")
 
@@ -434,19 +450,27 @@ def main(argv=None):
 
     result = assess(tgt, ten, lead, reserves, occ)
     print_report(result, have_lead=lead is not None, have_reserves=reserves is not None)
-    named, unnamed = new_candidates(occ, tgt)
+    occ_assessed = None
+    if occ is not None and len(occ):
+        # run the same tenure/lead/reserve tests over the recorded workings,
+        # so missed ground is reported WITH its access status
+        occ_assessed = assess(occ, ten, lead, reserves)
+    named, unnamed = new_candidates(occ_assessed, tgt)
     print_candidates(named, unnamed)
 
     out = HERE / "corinna_result.geojson"
     result.to_crs("EPSG:4326").to_file(out, driver="GeoJSON")
     print(f"\n[ok] {out.name} written — targets WITH the computed tenure/lead/reserve")
     print("     columns. Load in QGIS over a topo/satellite basemap and style by them.")
-    if occ is not None and len(occ):
+    if occ_assessed is not None:
         wout = HERE / "corinna_workings.geojson"
         cols = [c for c in ("NAME", "COMMODITYS", "TYPE", "STATUS", "DEP_SIZE",
-                            "LOC_ACC", "GENETIC", "REF", "geometry") if c in occ.columns]
-        occ[cols].to_crs("EPSG:4326").to_file(wout, driver="GeoJSON")
-        print(f"[ok] {wout.name} written — all {len(occ)} recorded gold/Os-Ir workings.")
+                            "LOC_ACC", "GENETIC", "REF", "tenure", "tenements",
+                            "on_lead", "lead_dist_m", "reserve", "reserve_mining",
+                            "geometry") if c in occ_assessed.columns]
+        occ_assessed[cols].to_crs("EPSG:4326").to_file(wout, driver="GeoJSON")
+        print(f"[ok] {wout.name} written — all {len(occ_assessed)} recorded "
+              "gold/Os-Ir workings WITH tenure/lead/reserve columns.")
 
 
 if __name__ == "__main__":

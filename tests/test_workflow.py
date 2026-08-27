@@ -92,6 +92,26 @@ def test_new_candidates(targets):
     assert named[0][1] == 15000  # 20000 - 5000 from the nearest target
 
 
+def test_tenure_short():
+    assert cw._tenure_short({"tenure": "clear", "tenements": None}) == "OPEN"
+    assert cw._tenure_short({"tenure": "ON TENEMENT",
+                             "tenements": "ERA9999 — Exploration Release Area"}) == "released"
+    assert cw._tenure_short(
+        {"tenure": "ON TENEMENT",
+         "tenements": "EL2/2018 — Exploration Licence — Georgina"}) == "EL2/2018"
+
+
+def test_assess_occurrences_reused(targets):
+    """assess() must work on the occurrences frame (no target columns)."""
+    ten = gpd.GeoDataFrame(
+        {"NAME": ["EL1/2020"], "TENEMENTTY": ["Exploration Licence"],
+         "OWNER": ["Acme Pty Ltd"]},
+        geometry=[square(0, 0)], crs=MGA55)
+    out = cw.assess(occ_frame(), ten, None, None)
+    assert out.iloc[0]["tenure"] == "ON TENEMENT"      # working at x=200
+    assert out.iloc[2]["tenure"] == "clear"            # working at x=20000
+
+
 def test_assess_without_layers(targets):
     out = cw.assess(targets, None, None, None)
     assert out.iloc[0]["tenure"] == "unknown"
