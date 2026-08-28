@@ -38,6 +38,7 @@ from shapely.ops import linemerge, substring
 
 from corinna_workflow import (fetch_tenements, fetch_list_layer, flag_lead,
                               MGA55, GEOLOGY_LAYER, RESERVES_LAYER, _text)
+from placenames import resolve as resolve_name
 
 HERE = Path(__file__).parent
 HYDRO_LAYER = ("https://services.thelist.tas.gov.au/arcgis/rest/services/"
@@ -64,8 +65,7 @@ ACCESS_GOOD = {"OPEN", "fossick", "released", "dec"}
 DEC_LICENCES = ("EL25/2020", "EL7/2021")
 
 
-def fetch_creeks(names):
-    """{name: [LineString, ...]} from the LIST hydrography layer (MGA55)."""
+def _query_hydro(names):
     quoted = ",".join("'" + n.replace("'", "''") + "'" for n in names)
     r = requests.get(f"{HYDRO_LAYER}/query", params={
         "where": f"NAME IN ({quoted})",
@@ -76,8 +76,32 @@ def fetch_creeks(names):
     grouped = {}
     for f in r.json().get("features", []):
         grouped.setdefault(f["properties"]["NAME"], []).append(shape(f["geometry"]))
+    return grouped
+
+
+def fetch_creeks(names):
+    """{requested_name: [LineString, ...]} from the LIST hydrography layer
+    (MGA55). Names missing from hydrography are resolved through the
+    Placenames Tasmania register (aliases + spelling variants) and retried,
+    so historical usage like "Sabbath Creek" or "Whyte Creek" still works."""
+    grouped = _query_hydro(names)
+    missing = [n for n in names if n not in grouped]
+    renames = {}
+    for nm in missing:
+        try:
+            registered, note, _ = resolve_name(nm)
+        except Exception as e:
+            print(f"[--] {nm}: register lookup failed ({e})")
+            continue
+        if registered and registered != nm:
+            renames[registered] = nm
+            print(f"[nom] {nm} -> {registered}  ({note})")
+        else:
+            print(f"[--] {nm}: {note}")
+    if renames:
+        for reg, hits in _query_hydro(list(renames)).items():
+            grouped[renames[reg]] = hits
     out = {}
-    src = gpd.GeoSeries([], crs="EPSG:4326")
     for nm, gs in grouped.items():
         flat = [l for g in gs
                 for l in (g.geoms if g.geom_type == "MultiLineString" else [g])]
@@ -197,10 +221,7 @@ def main(argv=None):
     if reserves is not None:
         reserves = reserves.to_crs(MGA55)
 
-    creeks = fetch_creeks(names)
-    missing = [n for n in names if n not in creeks]
-    for n in missing:
-        print(f"[--] {n}: not in the hydrography layer inside the field bbox")
+    creeks = fetch_creeks(names)   # reports unresolved names itself
 
     all_reaches = []
     print("\n" + "=" * 84)

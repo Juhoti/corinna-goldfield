@@ -121,7 +121,9 @@ names: SUNDAY CREEK (Sabbath Creek's 1879 name and its current hydrography
 name), SYDNEY TOM CREEK (Hangmans Creek's alias), CHINAMAN CREEK
 (superseded), McGINTY CREEK, LINGER AND DIE CREEK, TUNNELRACE CREEK. This is
 the bridge between names in the 1880s reports and the modern map: check it
-before concluding a creek name is lost.
+before concluding a creek name is lost. Integrated as `placenames.py` (with
+`creek_aliases.json` for outright renames); `reach_analysis.py` and
+`locate_creeks.py` resolve historical names through it automatically.
 
 ### Libraries Tasmania / Tasmanian Archives
 librariestas.ent.sirsidynix.net.au (catalogue) and stors.tas.gov.au

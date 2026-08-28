@@ -43,6 +43,9 @@ python3 corinna_workflow.py --margin 0.3 # widen the analysis window to the
 python3 reach_analysis.py                # classify creek centrelines into reaches
 python3 tenure_watch.py                  # diff current tenure against committed state
 python3 locate_creeks.py "Hangmans Creek"  # find a creek name in the hydrography layer
+python3 placenames.py "Sabbath Creek"    # resolve a historical name via the
+                                         # Placenames Tasmania register
+python3 placenames.py --search "%TUNNEL%"  # raw register search
 python3 trove_links.py                   # Trove newspaper search links per target
 ```
 
@@ -85,9 +88,13 @@ a tenement lapsing from the layer, an expiry date moving, or a holder change.
 - The lead-geology filter selects Tertiary sediment units (`Ts*`, plus other
   Tertiary units whose description records gravel). Quaternary stream
   alluvium is deliberately excluded.
-- Several historically named creeks (Sabbath, Frenchmans, Whyte, Nonesuch)
-  have no named centreline in the current hydrography layer within the field,
-  so reach analysis cannot cover them.
+- Several creek names in the historical record differ from the registered
+  hydrography names (Sabbath/Sunday, Frenchmans/Frenchman, Whyte/White,
+  Nonesuch/None Such). `placenames.py` resolves these automatically through
+  the Placenames Tasmania register, using `creek_aliases.json` for renames
+  that spelling heuristics cannot derive; `reach_analysis.py` and
+  `locate_creeks.py` apply the resolver as a fallback, so historical usage
+  works as input.
 - No public LiDAR coverage exists over the field. Historic aerial photography
   (1946 onwards) exists but is only accessible through the LIST Aerial Photo
   Viewer after login.

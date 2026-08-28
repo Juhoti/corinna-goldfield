@@ -95,7 +95,23 @@ def main(argv=None):
         matches = ([v for k, v in found.items() if nm.lower() in k.lower()]
                    if args.like else [found.get(nm)] if nm in found else [])
         matches = [m for m in matches if m]
-        if not matches:
+        if not matches and not args.like:
+            # not in hydrography under that name: try the placenames register
+            # (curated aliases + spelling variants), then re-query
+            try:
+                from placenames import resolve
+                registered, note, _ = resolve(nm, bbox=bbox)
+            except Exception:
+                registered, note = None, "register lookup failed"
+            if registered and registered != nm:
+                refound = query([registered], bbox=bbox)
+                if registered in refound:
+                    print(f"{nm:22s} -> {registered}  ({note})")
+                    matches = [refound[registered]]
+            if not matches:
+                print(f"{nm:22s} NOT FOUND — {note}")
+                continue
+        elif not matches:
             where = "Tasmania" if args.statewide else "the field bbox"
             print(f"{nm:22s} NOT FOUND in {where}"
                   + ("" if args.statewide else "  (try --statewide)"))

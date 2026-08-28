@@ -166,6 +166,35 @@ def test_field_bbox_excludes_outliers():
     assert miny > -41.8  # the -42.4 outlier must not drag the box south
 
 
+# ---- placenames resolver ----------------------------------------------------
+
+def test_name_variants():
+    import placenames as pn
+    assert pn.name_variants("Frenchmans Creek") == ["Frenchmans Creek",
+                                                    "Frenchman Creek"]
+    assert pn.name_variants("Middleton Creek") == ["Middleton Creek"]
+    # generic words (plains, creek...) keep their s
+    assert pn.name_variants("Brown Plains Creek") == ["Brown Plains Creek"]
+
+
+def test_distinctive_token():
+    import placenames as pn
+    assert pn.distinctive_token("Frenchmans Creek") == "Frenchman"
+    assert pn.distinctive_token("The Badger") == "Badger"
+    assert pn.distinctive_token("Main Rivulet") == "Main"
+
+
+def test_alias_file_resolution():
+    import placenames as pn
+    aliases = pn.load_aliases()
+    assert aliases["Sabbath Creek"] == "Sunday Creek"
+    assert aliases["Whyte Creek"] == "White Creek"
+    assert aliases["Nonesuch Creek"] == "None Such Creek"
+    resolved, note, _ = pn.resolve("Sabbath Creek", aliases=aliases)
+    assert resolved == "Sunday Creek"
+    assert "alias" in note
+
+
 # ---- reach analysis ---------------------------------------------------------
 
 def test_classify_matches():
