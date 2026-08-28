@@ -99,6 +99,18 @@ Track** and the **Historic Graves Track** near Corinna township. Closed
 segments mark former routes and are retained in `corinna_tracks.geojson`;
 track status says nothing about land access permission.
 
+Ten further historic routes were recovered from the Placenames Tasmania
+register, whose name-extent polygons for linear features are thin corridors
+tracing the route: the superseded **Corinna Track / Old Corinna Track** (the
+southern overland approach to the township), the superseded **Corinna Road**
+and **Balfour Road** alignments, the **Cleveland Tram Road**, and the Dennis,
+Salmons, Climies, Duck Creek, Top Farm and Trail Creek Tracks. These are
+committed as `historic_routes.geojson` (corridor polygons, not surveyed
+centrelines). The 1881 network itself — Thureau's map marks "Thureau's
+Track" — is reproduced in Haygarth (2012) at a scale too small to digitise;
+a full-resolution scan of Parliamentary Paper 82/1881 would allow the 1881
+routes to be georeferenced.
+
 ## 7. Negative results
 
 - **No LiDAR coverage** over the field — canopy-penetrating detection of old

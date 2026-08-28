@@ -60,6 +60,7 @@ Tests (no network required): `pip install pytest && pytest`
 | `corinna_reaches.geojson` | creek centrelines segmented into reaches classified by tenure and lead proximity; the `prime` flag marks reaches that are both accessible and lead-fed |
 | `corinna_lead.geojson` | the mapped Tertiary lead polygons used by the analysis (unit symbol and description) |
 | `corinna_tracks.geojson` | track and route segments in the analysis window, with name and open/closed status |
+| `historic_routes.geojson` | committed, not regenerated: ten superseded track/road corridors recovered from the Placenames Tasmania register (Old Corinna Track, Cleveland Tram Road, ...) |
 
 All outputs are WGS84 GeoJSON and load directly in QGIS. The LIST ArcGIS
 REST endpoint (`https://services.thelist.tas.gov.au/arcgis/rest/services`)
