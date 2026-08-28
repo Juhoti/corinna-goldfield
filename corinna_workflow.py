@@ -239,12 +239,11 @@ def flag_outliers(tgt):
     return bad
 
 
-def field_bbox(tgt_4326, outlier_names):
+def field_bbox(tgt_4326, outlier_names, margin=BBOX_MARGIN):
     """Lon/lat bounding box of the plausible targets, with margin."""
     pts = tgt_4326[tgt_4326.geometry.notna() & ~tgt_4326["name"].isin(outlier_names)]
     minx, miny, maxx, maxy = pts.total_bounds
-    return (minx - BBOX_MARGIN, miny - BBOX_MARGIN,
-            maxx + BBOX_MARGIN, maxy + BBOX_MARGIN)
+    return (minx - margin, miny - margin, maxx + margin, maxy + margin)
 
 
 def _text(row, *cols):
@@ -424,6 +423,10 @@ def main(argv=None):
                          "(tenements update daily)")
     ap.add_argument("--targets", type=Path, default=TARGETS,
                     help="target points GeoJSON (default: corinna_targets.geojson)")
+    ap.add_argument("--margin", type=float, default=BBOX_MARGIN,
+                    help="degrees of margin around the targets when clipping "
+                         "layers (default %(default)s; try 0.3 to sweep the "
+                         "surrounding districts - Bald Hill, Wilson River)")
     args = ap.parse_args(argv)
 
     if not args.targets.exists():
@@ -431,7 +434,7 @@ def main(argv=None):
     tgt_4326 = gpd.read_file(args.targets)
     tgt = tgt_4326.to_crs(MGA55)
     outliers = flag_outliers(tgt)
-    bbox = field_bbox(tgt_4326, {n for n, _ in outliers})
+    bbox = field_bbox(tgt_4326, {n for n, _ in outliers}, args.margin)
 
     ten = fetch_tenements(args.refresh)
     geol = fetch_list_layer(GEOLOGY_LAYER, bbox, "geology25k", args.refresh)
