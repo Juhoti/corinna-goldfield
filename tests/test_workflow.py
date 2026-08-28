@@ -123,19 +123,21 @@ def test_flag_lead_matches_real_schema():
     """Unit symbols/descriptions as they actually appear in the live 25K layer
     near Corinna — the word 'Tertiary' appears nowhere in the attributes."""
     geol = gpd.GeoDataFrame(
-        {"SYMBOL": ["Tsgs", "Tsgra", "Tb", "Lsdh", "Qha"],
+        {"SYMBOL": ["Tsgs", "Tsgra", "Tb", "Lsdh", "Qha", "Qhag", "Tcbc"],
          "DESCRIPT": [
              "Interbedded siliceous gravel, quartz sand and clay.",
              "Rounded and angular gravel, mainly vein quartz.",
              "Basalt.",
              "Pale grey and cream, massive, fine-grained dolomite (Corinna Dolomite).",
              "Stream alluvium, swamp and marsh deposits.",
+             "Alluvial gravel of modern streams.",   # Quaternary — must NOT match
+             "Basal conglomerate and gravel.",       # Tertiary + gravel — matches
          ]},
-        geometry=[square(i * 9000, 0) for i in range(5)],
+        geometry=[square(i * 9000, 0) for i in range(7)],
         crs=MGA55,
     )
     sub = cw.flag_lead(geol)
-    assert sorted(sub["SYMBOL"]) == ["Tsgra", "Tsgs"]
+    assert sorted(sub["SYMBOL"]) == ["Tcbc", "Tsgra", "Tsgs"]
 
 
 def test_flag_lead_missing_columns():
@@ -162,6 +164,52 @@ def test_field_bbox_excludes_outliers():
     )
     minx, miny, maxx, maxy = cw.field_bbox(pts, {"far"})
     assert miny > -41.8  # the -42.4 outlier must not drag the box south
+
+
+# ---- reach analysis ---------------------------------------------------------
+
+def test_classify_matches():
+    import reach_analysis as ra
+    assert ra.classify_matches([]) == "OPEN"
+    assert ra.classify_matches([("LICENCES", "ERA9999")]) == "released"
+    assert ra.classify_matches([("LICENCES", "EL25/2020")]) == "dec:EL25/2020"
+    assert ra.classify_matches([("LICENCES", "EL2/2018")]) == "held:EL2/2018"
+    assert ra.classify_matches([("LEASES", "25M/2003")]) == "held:25M/2003"
+    assert ra.classify_matches(
+        [("UNAVAILABLE_AREAS", "State Reserve")]) == "unavailable"
+    assert ra.classify_matches(
+        [("UNAVAILABLE_AREAS", "MRT Defined Areas - Fossick Areas")]) == "fossick"
+    # worst-wins stacking: EL over released ground is held
+    assert ra.classify_matches(
+        [("LICENCES", "ERA9999"), ("LICENCES", "EL2/2018")]) == "held:EL2/2018"
+    # a dec licence over ERA ground is still the December window
+    assert ra.classify_matches(
+        [("LICENCES", "ERA9999"), ("LICENCES", "EL25/2020")]) == "dec:EL25/2020"
+
+
+def test_runs():
+    import reach_analysis as ra
+    assert ra.runs(["a", "a", "b", "a"]) == [(0, 1, "a"), (2, 2, "b"), (3, 3, "a")]
+    assert ra.runs(["x"]) == [(0, 0, "x")]
+
+
+def test_classify_line_and_reaches():
+    import reach_analysis as ra
+    from shapely.geometry import LineString
+    line = LineString([(0, 0), (10000, 0)])   # 10 km west-east creek
+    # a tenement over the middle 2 km; lead polygon under the first 3 km
+    ten = gpd.GeoDataFrame({"layer": ["LICENCES"], "NAME": ["EL2/2018"]},
+                           geometry=[box(4000, -500, 6000, 500)], crs=MGA55)
+    lead = gpd.GeoDataFrame(geometry=[box(0, -500, 3000, 500)], crs=MGA55)
+    ds, labels = ra.classify_line(line, ten, lead, None)
+    recs = ra.reaches_for_line("Test Creek", 0, line, labels, ds)
+    prime = [r for r in recs if r["prime"]]
+    assert len(prime) == 1
+    # open + lead-fed = first ~3 km (plus the 150 m lead-near margin)
+    assert 2900 <= prime[0]["length_m"] <= 3400
+    held = [r for r in recs if r["access"] == "held:EL2/2018"]
+    assert held and 1800 <= held[0]["length_m"] <= 2200
+    assert sum(r["length_m"] for r in recs) >= 9500  # covers ~whole line
 
 
 # ---- tenure watcher ---------------------------------------------------------

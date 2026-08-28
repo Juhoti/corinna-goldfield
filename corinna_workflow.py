@@ -211,8 +211,12 @@ def flag_lead(geol):
         return None
     sym = geol.get("SYMBOL", pd.Series("", index=geol.index)).astype(str)
     desc = geol.get("DESCRIPT", pd.Series("", index=geol.index)).astype(str).str.lower()
-    mask = sym.str.startswith(LEAD_SYMBOL_PREFIXES) | desc.apply(
-        lambda v: any(h in v for h in LEAD_DESCRIPT_HINTS))
+    # Tertiary only: Ts* is the lead-sediment family; other T* units count when
+    # their description says gravel. Quaternary (Q*) stream gravels are modern
+    # alluvium, not deep lead — deliberately excluded.
+    mask = sym.str.startswith(LEAD_SYMBOL_PREFIXES) | (
+        sym.str.startswith("T") & desc.apply(
+            lambda v: any(h in v for h in LEAD_DESCRIPT_HINTS)))
     sub = geol[mask]
     units = sorted(sub["SYMBOL"].unique()) if "SYMBOL" in sub else []
     print(f"[geology] {len(sub)} lead polygons of {len(geol)} (units: {', '.join(units)})")

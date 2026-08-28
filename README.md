@@ -1,122 +1,105 @@
-# Corinna Goldfield — Combined Prospecting Workflow
+# corinna-goldfield
 
-Screening tool for the Corinna–Pieman goldfield (western Tasmania): takes 19
-history-derived target creeks and tests each against three **live** government
-layers to find unworked, lead-fed ground on open country.
+GIS screening toolkit for the Corinna–Pieman goldfield in western Tasmania.
+It cross-references the 19th-century mining record against current Tasmanian
+government spatial data to classify historical gold workings by present-day
+accessibility: mineral tenure, mapped Tertiary lead geology, and reserve
+status.
 
-| Layer | Source | What it answers |
+Analysis results are summarised in [FINDINGS.md](FINDINGS.md). Dated copies
+of the generated datasets are committed under [`data/`](data/), so the
+results can be used without running anything.
+
+## Data sources
+
+| Dataset | Provider | Used for |
 |---|---|---|
-| Current Mineral Tenements | MRT statewide shapefile (daily) | is the creek inside a lease / EL / unavailable area? |
-| Geological Polygons 25K | LIST ArcGIS REST (bbox-clipped) | does it sit on mapped Tertiary lead gravel (`Tsgs`/`Tss`/`Tsgra`)? |
-| Tasmanian Reserve Estate | LIST ArcGIS REST (bbox-clipped) | which reserve is it in, and is mining *available under the MRDA* there? |
-| Mineral Occurrences | MRT statewide shapefile | which *recorded* workings sit near each target (surveyed, ±50–200 m) — and which gold workings the history pack missed entirely |
+| Current Mineral Tenements (leases, licences, unavailable areas) | Mineral Resources Tasmania, updated daily | tenure classification |
+| Mineral Occurrences | Mineral Resources Tasmania | recorded workings, surveyed positions |
+| Geological Polygons 1:25 000 | LIST (ArcGIS REST) | Tertiary lead sediment mapping |
+| Tasmanian Reserve Estate | LIST (ArcGIS REST) | reserve boundaries and MRDA mining availability |
+| Rivers, Streams and Creeks | LIST (ArcGIS REST) | creek centrelines, historical name recovery |
 
-The **sweet spot** the tool surfaces: tier-3 (upstream) target + on/near
-Tertiary lead + clear of tenements + not in a mining-unavailable reserve.
+Historical inputs (target creeks, yields, rush chronology) are drawn from the
+1880s–1930s reports and modern histories listed in
+[HISTORY_SOURCEPACK.md](HISTORY_SOURCEPACK.md).
 
-## Contents
-
-- **`corinna_workflow.py`** — the map tool (above). Writes
-  `corinna_result.geojson` with all computed columns, ready to style in QGIS.
-- **`corinna_targets.geojson`** — 19 target creeks in 3 tiers
-  (high-yield / documented / upstream-exploratory), with lead status, yield,
-  and history notes.
-- **`HISTORY_SOURCEPACK.md`** — verified links to the 1880s inspectors' reports
-  and modern mining histories, annotated with the upstream detail to mine and
-  how to cross-reference it against the map.
-- **`locate_creeks.py`** — looks up creek names in the LIST hydrography layer.
-  The 1880s reports name creeks missing from every modern mining appendix;
-  many of those names survive on today's maps. This is how Hangmans Creek and
-  Longback Creek went from "archival-only" to real coordinates, and how the
-  Main Rivulet position was corrected (see below).
-- **`trove_links.py`** — per-target Trove newspaper searches (Tasmanian
-  papers, 1870-1949). The Mercury and the Zeehan & Dundas Herald covered the
-  Pieman rushes claim-by-claim. No API key needed for the URL mode; with a
-  free key in `TROVE_API_KEY`, `--api` prints article counts and first hits.
-- **`corinna_gold_tenure.py`** — the simpler earlier script (tenement check
-  only); superseded by `corinna_workflow.py` but kept as a lightweight fallback.
-- **`tests/`** — offline tests (synthetic geometry + target-file validation).
-
-## Run
+## Installation
 
 ```
 pip install -r requirements.txt
-python3 corinna_workflow.py            # caches downloads under work/
-python3 corinna_workflow.py --refresh  # tenements update daily — refresh
-                                       # before relying on a tenure answer
 ```
 
-Tests: `pip install pytest && pytest` (no network needed).
+Requires Python 3.10+ and network access to `mrt.tas.gov.au` and
+`services.thelist.tas.gov.au`. Downloads are cached under `work/`.
 
-## Reading the output
-
-Each target gets:
-- `tenure` / `tenure_dist_m` — ON TENEMENT, or clear + metres to the nearest
-  tenement edge (near-boundary results deserve suspicion: see accuracy note)
-- `on_lead` / `lead_dist_m` — on mapped Tertiary lead, or metres to it
-- `reserve` / `reserve_mining` — reserve name and its MRDA mining status
-  (e.g. Pieman River State Reserve is **Not available under the MRDA**)
-- `workings_near` / `nearest_working` — recorded MRT workings within 750 m
-
-After the per-target report comes the inverse question: **recorded gold
-workings >750 m from every target** — creeks the 1880s reports never named,
-plus the whole Golden Ridge tunnel field. Each one gets the same
-tenure/lead/reserve tests as the targets and is ranked by access, which is
-how Nonesuch Creek (open ground, ON mapped lead, surveyed ±100 m) surfaced.
-All 111 workings land in `corinna_workings.geojson` with their assessment
-columns, ready to style in QGIS.
-
-## The tenure watcher
-
-Tenure is the moving part — two licences over target creeks lapse in December
-2026 (EL25/2020 on the 2nd, EL7/2021 on the 21st). `tenure_watch.py` snapshots
-every target's tenure plus a watchlist of licences into `tenure_state.json`;
-when a run differs from the committed state it writes `tenure_diff.md` and
-updates the state. The GitHub Action (`.github/workflows/tenure-watch.yml`)
-runs it **every Monday**, commits the new state, and **opens an issue** with
-the diff — so "GROUND OPENED: Frenchmans Creek" arrives as a notification
-instead of a diary note. Run it by hand any time:
+## Usage
 
 ```
-python3 tenure_watch.py               # fresh download (what CI does)
-python3 tenure_watch.py --no-refresh  # reuse the cached layer
+python3 corinna_workflow.py              # per-target tenure/geology/reserve report
+python3 corinna_workflow.py --refresh    # force re-download (tenements change daily)
+python3 corinna_workflow.py --margin 0.3 # widen the analysis window to the
+                                         # surrounding districts
+python3 reach_analysis.py                # classify creek centrelines into reaches
+python3 tenure_watch.py                  # diff current tenure against committed state
+python3 locate_creeks.py "Hangmans Creek"  # find a creek name in the hydrography layer
+python3 trove_links.py                   # Trove newspaper search links per target
 ```
 
-Watch your repo notifications in December — and consider switching the cron
-to daily for that month.
+Tests (no network required): `pip install pytest && pytest`
 
-## QGIS extras
+## Outputs
 
-The LIST also serves raster layers worth loading under the results
-(QGIS → ArcGIS REST Server connection to
-`https://services.thelist.tas.gov.au/arcgis/rest/services`):
-- `Basemaps/Topographic`, `Basemaps/Hillshade`, `Basemaps/Orthophoto` — base
-- `Raster/AerialPhoto1941_50` … `Raster/AerialPhoto1991_2000` — the field
-  photographed **before the rainforest closed back over the workings**; the
-  1940s–60s runs show hydraulic scars and races invisible under today's canopy
-- `Raster/SprentsBook`, `Raster/TownGrantCharts` — 19th-century survey charts
+| File | Contents |
+|---|---|
+| `corinna_result.geojson` | the 19 historical targets with computed columns: tenure and containing tenements, distance to mapped lead, reserve and its mining status, nearby recorded workings |
+| `corinna_workings.geojson` | all recorded gold/osmiridium occurrences in the analysis window, with the same assessment columns |
+| `corinna_reaches.geojson` | creek centrelines segmented into reaches classified by tenure and lead proximity; the `prime` flag marks reaches that are both accessible and lead-fed |
 
-## Data provenance notes
+All outputs are WGS84 GeoJSON and load directly in QGIS. The LIST ArcGIS
+REST endpoint (`https://services.thelist.tas.gov.au/arcgis/rest/services`)
+serves topographic, hillshade and orthophoto basemaps that can be added as
+ArcGIS REST layers underneath them.
 
-- **Main Rivulet** — the field's richest target (600–900 kg est.) — had an
-  ambiguous grid reference in the source that plotted ~87 km south of the
-  field. Its position (and Hangmans/Longback's, formerly archival-only) is now
-  the creek's centreline midpoint from the LIST hydrography layer. All three
-  are marked `approx` — the creek is right, the exact reach is yours to walk.
-- The outlier sanity check in `corinna_workflow.py` stays on guard: any target
-  plotting >25 km from the field median is flagged loudly.
+## Tenure monitoring
 
-## The one rule
+Mineral tenure over the field changes; two exploration licences covering
+target creeks are due to expire in December 2026. `tenure_watch.py` snapshots
+the tenure state of every target plus a watchlist of tenements into
+`tenure_state.json`. A GitHub Action
+(`.github/workflows/tenure-watch.yml`) runs it weekly, commits the updated
+state, and opens an issue describing any change: ground opening or closing,
+a tenement lapsing from the layer, an expiry date moving, or a holder change.
 
-Every result is "the right creek, roughly" — coordinates are ~100–200 m (old
-AMG conversions). This narrows a whole goldfield to a handful of lead-fed
-candidates; **LISTmap and the MRT tenement viewer are what you navigate and
-verify by.** "Mining available under the MRDA" still requires a Prospecting
-Licence and any reserve-specific conditions — confirm with MRT
-(info@mrt.tas.gov.au) before going anywhere.
+## Accuracy and limitations
 
-## Safety
+- Historical target positions are converted 1880s–1930s grid references,
+  accurate to roughly 100–200 m. MRT occurrence positions are surveyed,
+  typically ±50–200 m. Boundary-adjacent results should be verified on
+  LISTmap and the MRT tenement viewer.
+- Tenure classification reflects a daily snapshot and is a screening result,
+  not legal advice. Prospecting in Tasmania requires a Prospecting Licence
+  outside declared fossicking areas, and land access rules apply
+  independently of mineral tenure. Access questions should be confirmed with
+  Mineral Resources Tasmania (info@mrt.tas.gov.au).
+- The lead-geology filter selects Tertiary sediment units (`Ts*`, plus other
+  Tertiary units whose description records gravel). Quaternary stream
+  alluvium is deliberately excluded.
+- Several historically named creeks (Sabbath, Frenchmans, Whyte, Nonesuch)
+  have no named centreline in the current hydrography layer within the field,
+  so reach analysis cannot cover them.
+- No public LiDAR coverage exists over the field. Historic aerial photography
+  (1946 onwards) exists but is only accessible through the LIST Aerial Photo
+  Viewer after login.
 
-Remote, wet, trackless, no phone coverage, hidden 1880s shafts. Not a solo
-trip. Tell someone your route and return time. The Fatman barge at Corinna has
-operating hours — your exit is time-gated.
+## Field safety
+
+The area is remote temperate rainforest with no mobile coverage and
+unmarked 19th-century shafts. The Fatman Barge at Corinna operates limited
+hours. Travel with company, leave route details, and treat all workings as
+unstable.
+
+## License
+
+MIT. Government datasets remain subject to their providers' terms
+(Mineral Resources Tasmania; Land Information System Tasmania).
