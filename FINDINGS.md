@@ -106,10 +106,28 @@ southern overland approach to the township), the superseded **Corinna Road**
 and **Balfour Road** alignments, the **Cleveland Tram Road**, and the Dennis,
 Salmons, Climies, Duck Creek, Top Farm and Trail Creek Tracks. These are
 committed as `historic_routes.geojson` (corridor polygons, not surveyed
-centrelines). The 1881 network itself — Thureau's map marks "Thureau's
-Track" — is reproduced in Haygarth (2012) at a scale too small to digitise;
-a full-resolution scan of Parliamentary Paper 82/1881 would allow the 1881
-routes to be georeferenced.
+centrelines). The 1877–85 network itself is documented in freely available text
+(Haygarth 2012) and is reconstructed as `documented_routes_1881.geojson`,
+five routes with the source quotation attached to each feature:
+
+- **Savage River water route** (1879–81) — "the thoroughfare between the
+  Middletons Creek diggings and the Pieman River"; the Donaldson Inn at its
+  mouth "could only be approached by water". Traced along the river.
+- **Pieman River water route** — steamer and boat thoroughfare from the
+  heads past Corinna to the middle reaches. Traced along the river.
+- **Corinna Track** (by 1880, improved for machinery 1883) — Waratah to the
+  diggings and Corinna, with stores at Long Plains and the 20-Mile Mark and
+  the mile-long "Underground Railway" crawl. Alignment indicative.
+- **Government Store track** (1881) — Corinna store to the Middletons Creek
+  workings. Alignment indicative.
+- **Sprent's track** (1876) — Waratah to Mount Heemskirk via the Ramsay
+  River and Yellowband Plain. Alignment indicative.
+
+Water routes follow the actual river geometry; land routes are indicative
+lines between documented waypoints. Exact 1880s land alignments would still
+require a full-resolution scan of Thureau's map (Parliamentary Paper
+82/1881, which marks "Thureau's Track"); the reproduction in Haygarth (2012)
+is too small to digitise.
 
 ## 7. Negative results
 

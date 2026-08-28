@@ -1,0 +1,316 @@
+{
+ "type": "FeatureCollection",
+ "features": [
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      145.0813,
+      -41.625
+     ],
+     [
+      145.0946,
+      -41.6193
+     ],
+     [
+      145.0937,
+      -41.6198
+     ],
+     [
+      145.0991,
+      -41.6171
+     ],
+     [
+      145.0893,
+      -41.6179
+     ],
+     [
+      145.1027,
+      -41.612
+     ],
+     [
+      145.109,
+      -41.6094
+     ],
+     [
+      145.1139,
+      -41.603
+     ],
+     [
+      145.1119,
+      -41.6042
+     ],
+     [
+      145.1147,
+      -41.6018
+     ],
+     [
+      145.1165,
+      -41.599
+     ],
+     [
+      145.1175,
+      -41.5963
+     ],
+     [
+      145.1214,
+      -41.5938
+     ],
+     [
+      145.1235,
+      -41.5913
+     ],
+     [
+      145.1221,
+      -41.5886
+     ],
+     [
+      145.1199,
+      -41.586
+     ],
+     [
+      145.1222,
+      -41.5834
+     ],
+     [
+      145.1334,
+      -41.5808
+     ],
+     [
+      145.1389,
+      -41.5782
+     ],
+     [
+      145.1361,
+      -41.5794
+     ],
+     [
+      145.1367,
+      -41.5693
+     ],
+     [
+      145.1339,
+      -41.5705
+     ],
+     [
+      145.1397,
+      -41.5679
+     ],
+     [
+      145.1422,
+      -41.5613
+     ],
+     [
+      145.1316,
+      -41.5626
+     ],
+     [
+      145.1324,
+      -41.56
+     ]
+    ]
+   },
+   "properties": {
+    "name": "Savage River water route",
+    "kind": "water",
+    "period": "1879-1881",
+    "evidence": "Haygarth 2012 pp.61,63 & n.9: 'Until 1881 the Savage River was the thoroughfare between the Middletons Creek diggings and the Pieman River'; Donaldson Inn at the mouth 'could only be approached by water'.",
+    "accuracy": "route follows the river; spine sampled from LIST water-body polygons"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      145.062,
+      -41.6445
+     ],
+     [
+      145.0624,
+      -41.6433
+     ],
+     [
+      145.0672,
+      -41.6506
+     ],
+     [
+      145.0735,
+      -41.6515
+     ],
+     [
+      145.079,
+      -41.6538
+     ],
+     [
+      145.0795,
+      -41.6548
+     ],
+     [
+      145.0863,
+      -41.6555
+     ],
+     [
+      145.0919,
+      -41.6537
+     ],
+     [
+      145.0999,
+      -41.6542
+     ],
+     [
+      145.1077,
+      -41.6578
+     ],
+     [
+      145.1127,
+      -41.6617
+     ],
+     [
+      145.1207,
+      -41.663
+     ],
+     [
+      145.1268,
+      -41.6653
+     ],
+     [
+      145.137,
+      -41.7023
+     ],
+     [
+      145.1405,
+      -41.7042
+     ]
+    ]
+   },
+   "properties": {
+    "name": "Pieman River water route",
+    "kind": "water",
+    "period": "1877-1885",
+    "evidence": "Haygarth 2012 throughout: steamer and boat thoroughfare from the heads past Corinna to the middle reaches (Alma Cove, Echo Vale); Hangmans Creek '15 km upstream from the Pieman stores'.",
+    "accuracy": "route follows the river; spine sampled from LIST water-body polygons"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      145.5317,
+      -41.4461
+     ],
+     [
+      145.44,
+      -41.442
+     ],
+     [
+      145.32,
+      -41.455
+     ],
+     [
+      145.245,
+      -41.49
+     ],
+     [
+      145.2148,
+      -41.5199
+     ],
+     [
+      145.16,
+      -41.55
+     ],
+     [
+      145.125,
+      -41.6
+     ],
+     [
+      145.105,
+      -41.625
+     ],
+     [
+      145.0866,
+      -41.6518
+     ]
+    ]
+   },
+   "properties": {
+    "name": "Corinna Track (Waratah road)",
+    "kind": "land",
+    "period": "by 1880; improved 1883",
+    "evidence": "Haygarth 2012 pp.62,67: subscription track Waratah to the Middletons Creek diggings incl. the 'Underground Railway'; 'The Corinna Track was improved to enable machinery to be hauled in from Waratah in 1883'; stores at Long Plains and the 20-Mile Mark; telegraph line 1882.",
+    "accuracy": "INDICATIVE \u2014 documented endpoints and waypoints (Waratah, Long Plains, Middletons Creek diggings, Corinna); exact alignment unknown"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      145.0866,
+      -41.6518
+     ],
+     [
+      145.092,
+      -41.641
+     ],
+     [
+      145.0935,
+      -41.6313
+     ]
+    ]
+   },
+   "properties": {
+    "name": "Government Store track (1881)",
+    "kind": "land",
+    "period": "1881",
+    "evidence": "Haygarth 2012 p.65 & n.9: Government Store at Corinna 'and the completion of a track to it in 1881 diverted traffic away from Savage's inn'; the map 'shows the position of the Government Store, and the workings north of there at Middletons Creek'.",
+    "accuracy": "INDICATIVE \u2014 short documented connection Corinna store to the Middletons Creek workings; alignment unknown"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      145.5317,
+      -41.4461
+     ],
+     [
+      145.4846,
+      -41.5543
+     ],
+     [
+      145.3397,
+      -41.5937
+     ],
+     [
+      145.25,
+      -41.66
+     ],
+     [
+      145.21,
+      -41.72
+     ],
+     [
+      145.1756,
+      -41.8551
+     ]
+    ]
+   },
+   "properties": {
+    "name": "Sprent's track (1876)",
+    "kind": "land",
+    "period": "1876",
+    "evidence": "Haygarth 2012 p.57: Sprent's 'prospecting track from Waratah to Mount Heemskirk via the Ramsay River, Yellowband Plain and the middle reaches of the Pieman was not a supply route, being too rough for packhorses'.",
+    "accuracy": "INDICATIVE \u2014 documented waypoints (Waratah, Ramsay River, Yellowband Plain, middle Pieman, Mt Heemskirk); exact alignment unknown"
+   }
+  }
+ ]
+}
