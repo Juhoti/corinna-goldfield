@@ -23,7 +23,7 @@ lease (25M/2003) covers the central Brookside block. The exceptions:
   Longback Creek, Mt Donaldson and the Savage River workings.
 - **Two licences lapse in December 2026**: EL25/2020 (Frenchmans, Nancy,
   Hangmans Creeks) on the 2nd; EL7/2021 (Sabbath Creek) on the 21st. The
-  [tenure watcher](README.md#the-tenure-watcher) monitors both weekly.
+  [tenure watcher](README.md#tenure-monitoring) monitors both weekly.
 
 No target sits in a mining-prohibited reserve; the Pieman River State Reserve
 corridor is the standing local exception.
