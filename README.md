@@ -62,6 +62,7 @@ Tests (no network required): `pip install pytest && pytest`
 | `corinna_tracks.geojson` | track and route segments in the analysis window, with name and open/closed status |
 | `historic_routes.geojson` | committed, not regenerated: ten superseded track/road corridors recovered from the Placenames Tasmania register (Old Corinna Track, Cleveland Tram Road, ...) |
 | `documented_routes_1881.geojson` | committed, not regenerated: the 1877–85 route network reconstructed from documentary evidence (Haygarth 2012), each feature carrying its source quotation; water routes follow river geometry, land routes are indicative |
+| `unworked_candidates.geojson` | committed, not regenerated: historically attested gold ground with no or minimal modern record, each candidate carrying its evidence and 2026 tenure status |
 
 All outputs are WGS84 GeoJSON and load directly in QGIS. The LIST ArcGIS
 REST endpoint (`https://services.thelist.tas.gov.au/arcgis/rest/services`)

@@ -129,7 +129,54 @@ require a full-resolution scan of Thureau's map (Parliamentary Paper
 82/1881, which marks "Thureau's Track"); the reproduction in Haygarth (2012)
 is too small to digitise.
 
-## 7. Negative results
+## 7. Attested but unworked or under-tested ground
+
+A cross-examination of the narrative record (Thureau's 1881 map, Haygarth
+2012 and 2022, Montgomery 1894) against the occurrence database and the
+placenames register, looking for ground the record praises that the modern
+datasets do not know. Candidates, with their evidence, are committed as
+`unworked_candidates.geojson`. Ranked:
+
+- **Brooklyn Hydraulic** (released ground, on mapped lead). The company's
+  manager recalled sluicing a fortnight in 1895 for 16 oz "which paid
+  expenses for the actual time of sluicing" — then being shut by a
+  directors' wire when *other* companies' clean-ups disappointed. Paying
+  ground closed by corporate contagion, barely opened.
+- **New Donaldson Hydraulic** (released ground, on mapped lead). After more
+  than a year of works and a 19.4 km head race, the mine "was abandoned
+  without its gravels being tested". The unused race survives beside the
+  Western Explorer road.
+- **George Town Packet Creek** (EL25/2020 — December 2026 window; 129 m from
+  mapped lead). A numbered gold locality on Thureau's 1881 field map with no
+  recorded occurrence within ~8 km today.
+- **Duck Creek** (EL2/2018 to Aug 2027; 213 m from mapped lead). As above:
+  1881-mapped, no modern record within ~9 km.
+- **Mount Livingstone southern plateau** (EL23/2020 — also lapses 2 December
+  2026). Montgomery 1894: "undoubtedly an excellent field for hydraulic
+  sluicing in the terraces along the Savage, Whyte, and Pieman Rivers, and
+  on the plateau lying south of Mount Livingstone." No occurrence within
+  ~5 km; note the 25K mapping shows no Ts unit there, so the terraces are
+  either unmapped at that scale or Montgomery overreached.
+- **Amelia Creek and Alice Creek** — two of the four creeks the Slater
+  brothers named in 1879. Their siblings Nancy and Lucy carry recorded
+  workings; Amelia and Alice do not appear in the placenames register at
+  all. Lost localities; the 1879–85 newspapers are the relocation source.
+- A tail of digger-era stream names with no recorded working nearby
+  (Linger and Die, Doctors, Cruncher, Smoko, Post Office, Paradox Creeks
+  and others) — name-evidence only, listed in the analysis but not in the
+  candidates file.
+
+Context for the hydraulic-era candidates: the 1895 clean-ups were poor
+overall (Corinna Hydraulic 80 oz, Brookside 34 oz), and Haygarth's verdict
+on the craze is that terrace elevation, thin wash and "ultimately, there
+wasn't enough gold" ended it. Brooklyn (paying when closed) and New
+Donaldson (never tested) are the two documented exceptions to that verdict.
+
+A third December date emerged from this search: **EL23/2020 (Georgina
+Resources) also expires 2 December 2026**, covering the Mount Livingstone
+ground; it has been added to the tenure watcher.
+
+## 8. Negative results
 
 - **No LiDAR coverage** over the field — canopy-penetrating detection of old
   workings is not currently possible from public data.

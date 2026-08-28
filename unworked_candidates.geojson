@@ -1,0 +1,121 @@
+{
+ "type": "FeatureCollection",
+ "features": [
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     145.0717,
+     -41.6253
+    ]
+   },
+   "properties": {
+    "name": "Brooklyn Hydraulic ground",
+    "tier": "A \u2014 paying gold, abandoned by corporate panic",
+    "status_2026": "released (ERA9999), on mapped lead",
+    "evidence": "F.C. Brooks (manager, 1913 recollection in Haygarth 2022 n.47): sluiced a fortnight for 16 oz 'which paid expenses for the actual time of sluicing'; shut by directors' wire after OTHER companies' poor cleanups, June 1895. Recorded occurrence 'Brooklyn' marks the claim; the paying face was barely opened."
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     145.0826,
+     -41.5992
+    ]
+   },
+   "properties": {
+    "name": "New Donaldson Hydraulic ground",
+    "tier": "A \u2014 never tested",
+    "status_2026": "released (ERA9999), on mapped lead",
+    "evidence": "Haygarth 2022 p.44 (n.50): 'after more than a year's infrastructure work, the mine that was going to pay \u00a3300 per week was abandoned without its gravels being tested.' The unused 19.4 km head race survives along the Western Explorer. Montgomery (1894, n.29) rated the district's terraces 'undoubtedly an excellent field'."
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     145.0149,
+     -41.7357
+    ]
+   },
+   "properties": {
+    "name": "George Town Packet Creek",
+    "tier": "B \u2014 1881-mapped gold locality, no modern record",
+    "status_2026": "EL25/2020 \u2014 lapses 2 Dec 2026; 129 m from mapped lead",
+    "evidence": "Numbered locality in the Explanation of Thureau's 1881 goldfield map (PP 82/1881, reproduced Haygarth 2012 Fig.1). Nearest recorded gold occurrence today: ~8.4 km. Named for the 1875 wreck of the George Town Packet at the Pieman heads."
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     145.0441,
+     -41.7594
+    ]
+   },
+   "properties": {
+    "name": "Duck Creek",
+    "tier": "B \u2014 1881-mapped gold locality, no modern record",
+    "status_2026": "EL2/2018 to Aug 2027; 213 m from mapped lead",
+    "evidence": "Numbered locality on Thureau's 1881 map; DUCK CREEK TRACK is a registered historic track name. Nearest recorded gold occurrence today: ~8.9 km."
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     145.25,
+     -41.7
+    ]
+   },
+   "properties": {
+    "name": "Mount Livingstone southern plateau",
+    "tier": "C \u2014 named terrace target, never systematised",
+    "status_2026": "EL23/2020 \u2014 lapses 2 Dec 2026; ~6 km from mapped Ts lead (terraces may be unmapped at 25K)",
+    "evidence": "Montgomery, Secretary of Mines Report 1893-94 (Haygarth 2022 n.29): 'there is undoubtedly an excellent field for hydraulic sluicing in the terraces along the Savage, Whyte, and Pieman Rivers, and on the plateau lying south of Mount Livingstone.' No occurrence within ~5 km of the plateau."
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": null,
+   "properties": {
+    "name": "Amelia Creek",
+    "tier": "D \u2014 lost 1879 locality",
+    "status_2026": "not in the placenames register; archival relocation required",
+    "evidence": "Named by the Slater brothers with Nancy, Lucy and Alice Creeks (Haygarth 2012 p.61). Nancy and Lucy carry recorded gold workings; Amelia's name did not survive to the register. Trove 1879-85 papers are the relocation source."
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": null,
+   "properties": {
+    "name": "Alice Creek",
+    "tier": "D \u2014 lost 1879 locality",
+    "status_2026": "not in the placenames register; archival relocation required",
+    "evidence": "As Amelia Creek: fourth of the Slater female-name set, name lost. Likely SE field near Nancy/Lucy Creeks."
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     145.0553,
+     -41.6259
+    ]
+   },
+   "properties": {
+    "name": "Lovers Falls paydirt (legend)",
+    "tier": "E \u2014 legend, near-known ground",
+    "status_2026": "released area; adjacent to Donaldson Landing prospect",
+    "evidence": "Haygarth 2012 p.61: 'Lovers Falls (formerly True Lovers Falls) reputedly records the breach of trust when a lady's busy lips divulged the site of her lover's paydirt.' Folklore-grade evidence."
+   }
+  }
+ ]
+}

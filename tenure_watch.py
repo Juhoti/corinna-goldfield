@@ -39,7 +39,7 @@ STATE_FILE = HERE / "tenure_state.json"
 DIFF_FILE = HERE / "tenure_diff.md"
 
 # Licences we care about even before/after they cover a target.
-WATCHLIST = ["EL25/2020", "EL7/2021", "EL2/2018", "EL30/2003",
+WATCHLIST = ["EL25/2020", "EL7/2021", "EL23/2020", "EL2/2018", "EL30/2003",
              "25M/2003", "2M/2001", "ERA9999"]
 
 
