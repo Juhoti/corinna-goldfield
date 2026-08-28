@@ -90,7 +90,16 @@ neighbouring workings on released ground; the **Bald Hill osmiridium field**
 EL22/2025); and **three declared MRT Fossick Areas** — Castray (with the
 Brassy North gold working inside it), Magnet Range, and Melba Flat.
 
-## 6. Negative results
+## 6. Access tracks
+
+The LIST track layer records 159 track segments in the wide analysis window,
+13 of them closed. Directly relevant to the field: **Longback Track**
+(approaching the Longback Creek prime reaches from the north), **Whyte River
+Track** and the **Historic Graves Track** near Corinna township. Closed
+segments mark former routes and are retained in `corinna_tracks.geojson`;
+track status says nothing about land access permission.
+
+## 7. Negative results
 
 - **No LiDAR coverage** over the field — canopy-penetrating detection of old
   workings is not currently possible from public data.

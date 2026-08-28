@@ -58,6 +58,8 @@ Tests (no network required): `pip install pytest && pytest`
 | `corinna_result.geojson` | the 19 historical targets with computed columns: tenure and containing tenements, distance to mapped lead, reserve and its mining status, nearby recorded workings |
 | `corinna_workings.geojson` | all recorded gold/osmiridium occurrences in the analysis window, with the same assessment columns |
 | `corinna_reaches.geojson` | creek centrelines segmented into reaches classified by tenure and lead proximity; the `prime` flag marks reaches that are both accessible and lead-fed |
+| `corinna_lead.geojson` | the mapped Tertiary lead polygons used by the analysis (unit symbol and description) |
+| `corinna_tracks.geojson` | track and route segments in the analysis window, with name and open/closed status |
 
 All outputs are WGS84 GeoJSON and load directly in QGIS. The LIST ArcGIS
 REST endpoint (`https://services.thelist.tas.gov.au/arcgis/rest/services`)

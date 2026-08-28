@@ -6,6 +6,8 @@ corinna_tenure/
 # script output
 corinna_result.geojson
 corinna_workings.geojson
+corinna_lead.geojson
+corinna_tracks.geojson
 tenure_diff.md
 
 __pycache__/

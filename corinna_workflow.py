@@ -61,6 +61,7 @@ TENEMENT_ZIP = ("https://www.mrt.tas.gov.au/mrtdoc/public_files/"
 LIST_REST = "https://services.thelist.tas.gov.au/arcgis/rest/services"
 GEOLOGY_LAYER = f"{LIST_REST}/Public/GeologicalAndSoils/MapServer/14"      # Geological Polygons 25K
 RESERVES_LAYER = f"{LIST_REST}/Public/CadastreAndAdministrative/MapServer/29"  # Tasmanian Reserve Estate
+TRACKS_LAYER = f"{LIST_REST}/Public/TopographyAndRelief/MapServer/24"          # Tracks-Ferry Routes
 
 # MRT Mineral Occurrences: every recorded working/deposit in the state, with
 # surveyed positions (LOC_ACC in metres — mostly 50-200 m, better than our
@@ -443,6 +444,7 @@ def main(argv=None):
     ten = fetch_tenements(args.refresh)
     geol = fetch_list_layer(GEOLOGY_LAYER, bbox, "geology25k", args.refresh)
     reserves = fetch_list_layer(RESERVES_LAYER, bbox, "reserves", args.refresh)
+    tracks = fetch_list_layer(TRACKS_LAYER, bbox, "tracks", args.refresh)
     occ = fetch_occurrences(bbox, args.refresh)
     lead = flag_lead(geol)
 
@@ -469,6 +471,20 @@ def main(argv=None):
     result.to_crs("EPSG:4326").to_file(out, driver="GeoJSON")
     print(f"\n[ok] {out.name} written — targets WITH the computed tenure/lead/reserve")
     print("     columns. Load in QGIS over a topo/satellite basemap and style by them.")
+    if lead is not None and len(lead):
+        lout = HERE / "corinna_lead.geojson"
+        lcols = [c for c in ("SYMBOL", "DESCRIPT", "PERIOD", "geometry")
+                 if c in lead.columns]
+        lead[lcols].to_crs("EPSG:4326").to_file(lout, driver="GeoJSON")
+        print(f"[ok] {lout.name} written — {len(lead)} mapped Tertiary lead polygons.")
+    if tracks is not None and len(tracks):
+        tout = HERE / "corinna_tracks.geojson"
+        tcols = [c for c in ("PRI_NAME", "STATUS", "USER_TYPE", "TRANS_TYPE",
+                             "SURFACE_TY", "geometry") if c in tracks.columns]
+        tracks[tcols].to_file(tout, driver="GeoJSON")
+        closed = int((tracks.get("STATUS") == "Closed").sum())
+        print(f"[ok] {tout.name} written — {len(tracks)} track segments "
+              f"({closed} closed).")
     if occ_assessed is not None:
         wout = HERE / "corinna_workings.geojson"
         cols = [c for c in ("NAME", "COMMODITYS", "TYPE", "STATUS", "DEP_SIZE",
