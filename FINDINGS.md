@@ -32,15 +32,18 @@ corridor is the standing local exception.
 
 `reach_analysis.py` samples each creek centreline every 25 m and classifies
 tenure × lead proximity (≤150 m of mapped Tertiary lead units, `Ts*`) ×
-reserve. Of ~56 km of mapped creek, approximately 2.0 km is "prime": accessible
-tenure and lead-fed.
+reserve. Of ~67 km of mapped creek, approximately 4.5 km is "prime":
+accessible tenure and lead-fed.
 
 | Creek | Prime length | Tenure class |
 |---|---|---|
-| **Longback Creek ("The Badger")** | **1,325 m** in 3 reaches | released (ERA9999) |
-| Middleton Creek | 175 m | open |
-| Nancy Creek | 224 m | EL25/2020 — opens Dec 2026 if not renewed |
+| Longback Creek ("The Badger") | 1,325 m in 3 reaches | released (ERA9999) |
+| Frenchman Creek | 972 m in 3 reaches | EL25/2020 — opens Dec 2026 if not renewed |
+| Brown Plains Creek | 824 m | EL25/2020 — as above |
+| None Such Creek | 645 m (397 m open, 248 m released) | open / released |
 | Doodie Creek | 298 m in 2 reaches | EL25/2020 — as above |
+| Nancy Creek | 224 m | EL25/2020 — as above |
+| Middleton Creek | 175 m | open |
 
 Longback Creek was rushed in 1879, is absent from the modern mining
 appendices, and was relocated here through its surviving name in the LIST
@@ -68,9 +71,15 @@ targets. Workings >750 m from every historical target, ranked by access:
   7 km from mapped lead.
 - **Hangmans and Longback Creeks** — "archival-only" in the source pack —
   both survive by name in modern hydrography and now carry coordinates.
-- **Sabbath, Frenchmans, Whyte and Nonesuch Creeks** have *no named
-  centreline* in modern hydrography within the field, though their MRT
-  occurrence points exist — a naming gap between the two government datasets.
+- Four creeks initially appeared to have no named centreline in modern
+  hydrography (Sabbath, Frenchmans, Whyte, Nonesuch). The LIST Named
+  Features layer (the Placenames Tasmania register) resolved all four as
+  spelling or naming differences: the registered hydrography names are
+  **Sunday Creek** (Sabbath's 1879 name), **Frenchman Creek**, **White
+  Creek** and **None Such Creek**. The register also preserves superseded
+  and unofficial names — Sydney Tom Creek (Hangmans Creek's alias in the
+  1880 reports), Chinaman Creek (superseded), McGinty Creek — making it the
+  bridge dataset between the historical record and modern hydrography.
 
 ## 5. The wider district
 

@@ -48,12 +48,16 @@ STEP_M = 25          # sampling interval along each creek
 LEAD_NEAR_M = 150    # "lead-fed" = within this of a mapped lead polygon
 MIN_REACH_M = 100    # don't report slivers shorter than this
 
+# Names follow the LIST hydrography layer, which follows the Placenames
+# Tasmania register — several differ from common usage: FRENCHMAN (not
+# Frenchmans), NONE SUCH (not Nonesuch), WHITE (not Whyte), and Sabbath
+# Creek's registered hydrography name is its 1879 name, SUNDAY CREEK.
 DEFAULT_CREEKS = [
-    "Middleton Creek", "Sabbath Creek", "Longback Creek", "Hangmans Creek",
-    "Frenchmans Creek", "Nancy Creek", "Lucy Creek", "Donnelly Creek",
-    "Timbs Creek", "Eight Mile Creek", "Sailor Creek", "Sailor Jack Creek",
-    "Main Rivulet", "Whyte Creek", "Nonesuch Creek", "Brown Plain Creek",
-    "Browns Creek", "Doodie Creek", "Jansen Creek", "Jarman Creek",
+    "Middleton Creek", "Sunday Creek", "Longback Creek", "Hangmans Creek",
+    "Frenchman Creek", "Nancy Creek", "Lucy Creek", "Donnelly Creek",
+    "Timbs Creek", "Eight Mile Creek", "Sailor Creek", "Main Rivulet",
+    "White Creek", "None Such Creek", "Brown Plains Creek", "Doodie Creek",
+    "Jansen Creek", "Jarman Creek", "Tunnelrace Creek",
 ]
 
 ACCESS_GOOD = {"OPEN", "fossick", "released", "dec"}

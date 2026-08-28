@@ -32,8 +32,9 @@ HYDRO_LAYER = ("https://services.thelist.tas.gov.au/arcgis/rest/services/"
 # lon/lat box around the Corinna-Pieman field, with generous margin
 FIELD_BBOX = (144.85, -41.90, 145.45, -41.40)
 
-DEFAULT_NAMES = ["Hangmans Creek", "Longback Creek", "Sabbath Creek",
-                 "Main Rivulet", "Frenchmans Creek", "Lucy Creek"]
+DEFAULT_NAMES = ["Hangmans Creek", "Longback Creek", "Sunday Creek",
+                 "Main Rivulet", "Frenchman Creek", "None Such Creek",
+                 "White Creek", "Lucy Creek"]
 
 
 def query(names, bbox=None, like=False):

@@ -112,6 +112,38 @@ and names that never made the official reports. Cross-reference against
 `locate_creeks.py` — if a newspaper names a creek, the name may survive in
 the LIST hydrography layer.
 
+## TIER D — archives, registers and field media
+
+### Placenames Tasmania / LIST "Named Features" layer
+`Public/SearchService/MapServer/0` on the LIST ArcGIS REST endpoint. The
+registered nomenclature for the field, including superseded and unofficial
+names: SUNDAY CREEK (Sabbath Creek's 1879 name and its current hydrography
+name), SYDNEY TOM CREEK (Hangmans Creek's alias), CHINAMAN CREEK
+(superseded), McGINTY CREEK, LINGER AND DIE CREEK, TUNNELRACE CREEK. This is
+the bridge between names in the 1880s reports and the modern map: check it
+before concluding a creek name is lost.
+
+### Libraries Tasmania / Tasmanian Archives
+librariestas.ent.sirsidynix.net.au (catalogue) and stors.tas.gov.au
+(digitised items). Photographs, mining charts, correspondence and diaries
+for the west coast fields. Browser access only.
+
+### UTAS ePrints — eprints.utas.edu.au
+University of Tasmania open repository: geology theses and history papers
+covering the Corinna–Pieman area. Machine-readable search:
+`/cgi/search/simple?q=Pieman+gold&output=Atom`.
+
+### Royal Society of Tasmania — rst.org.au
+Papers and Proceedings from the 1850s onward; early geological accounts of
+the west coast pre-date the Mines Department record.
+
+### Field documentation on YouTube
+Rob Parsons (youtube.com/c/RobParsons1) documents relocated and previously
+unrecorded workings across western Tasmania, including the Corinna–Waratah
+country. Video descriptions and footage occasionally identify localities
+that appear in no published dataset. Treat as leads for cross-referencing
+against the occurrence and nomenclature layers, not as verified positions.
+
 ## HOW TO CROSS-REFERENCE (the actual method)
 
 1. Run `corinna_workflow.py` → get each target's lead + tenure status, and the
