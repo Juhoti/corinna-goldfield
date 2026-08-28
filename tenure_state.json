@@ -1,0 +1,160 @@
+{
+ "targets": {
+  "Brookside Workings": {
+   "tenements": [
+    "25M/2003"
+   ],
+   "tenure": "ON TENEMENT"
+  },
+  "Browns Plains / Long Plains": {
+   "tenements": [
+    "EL2/2018"
+   ],
+   "tenure": "ON TENEMENT"
+  },
+  "Donnelly Creek": {
+   "tenements": [
+    "EL2/2018"
+   ],
+   "tenure": "ON TENEMENT"
+  },
+  "Eight Mile Creek": {
+   "tenements": [
+    "EL2/2018"
+   ],
+   "tenure": "ON TENEMENT"
+  },
+  "Frenchmans Creek": {
+   "tenements": [
+    "EL25/2020"
+   ],
+   "tenure": "ON TENEMENT"
+  },
+  "Hangmans Creek": {
+   "tenements": [
+    "EL25/2020"
+   ],
+   "tenure": "ON TENEMENT"
+  },
+  "Lucy Creek": {
+   "tenements": [
+    "EL2/2018"
+   ],
+   "tenure": "ON TENEMENT"
+  },
+  "Main Rivulet": {
+   "tenements": [
+    "2M/2001"
+   ],
+   "tenure": "ON TENEMENT"
+  },
+  "Middleton Creek": {
+   "tenements": [],
+   "tenure": "clear"
+  },
+  "Mt Donaldson": {
+   "tenements": [
+    "ERA9999"
+   ],
+   "tenure": "ON TENEMENT"
+  },
+  "Nancy Creek": {
+   "tenements": [
+    "EL25/2020"
+   ],
+   "tenure": "ON TENEMENT"
+  },
+  "Paradise River": {
+   "tenements": [
+    "EL2/2018"
+   ],
+   "tenure": "ON TENEMENT"
+  },
+  "Rocky River": {
+   "tenements": [
+    "EL2/2018"
+   ],
+   "tenure": "ON TENEMENT"
+  },
+  "Sabbath (Sunday) Creek": {
+   "tenements": [
+    "EL7/2021"
+   ],
+   "tenure": "ON TENEMENT"
+  },
+  "Sailor Creek": {
+   "tenements": [
+    "25M/2003"
+   ],
+   "tenure": "ON TENEMENT"
+  },
+  "Savage River (N/S/Dredge)": {
+   "tenements": [
+    "ERA9999"
+   ],
+   "tenure": "ON TENEMENT"
+  },
+  "Timbs Creek": {
+   "tenements": [
+    "EL30/2003"
+   ],
+   "tenure": "ON TENEMENT"
+  },
+  "Timbs/Longback (The Badger)": {
+   "tenements": [
+    "ERA9999"
+   ],
+   "tenure": "ON TENEMENT"
+  },
+  "Whyte River": {
+   "tenements": [
+    "EL2/2018"
+   ],
+   "tenure": "ON TENEMENT"
+  }
+ },
+ "tenements": {
+  "25M/2003": {
+   "expires": "2029-12-21",
+   "owner": "Tasmanian Advanced Minerals Pty Ltd",
+   "status": "Granted",
+   "type": "LEASE"
+  },
+  "2M/2001": {
+   "expires": "2031-11-07",
+   "owner": "Grange Resources (Tasmania) Pty Ltd",
+   "status": "Granted",
+   "type": "LEASE"
+  },
+  "EL2/2018": {
+   "expires": "2027-08-05",
+   "owner": "Georgina Resources Pty Ltd",
+   "status": "Granted",
+   "type": "Exploration Licence"
+  },
+  "EL25/2020": {
+   "expires": "2026-12-02",
+   "owner": "Georgina Resources Pty Ltd",
+   "status": "Granted",
+   "type": "Exploration Licence"
+  },
+  "EL30/2003": {
+   "expires": "2030-06-18",
+   "owner": "Grange Resources (Tasmania) Pty Ltd",
+   "status": "Granted",
+   "type": "Exploration Licence"
+  },
+  "EL7/2021": {
+   "expires": "2026-12-21",
+   "owner": "Homan,A J",
+   "status": "Pending Surrender",
+   "type": "Exploration Licence"
+  },
+  "ERA9999": {
+   "expires": null,
+   "owner": null,
+   "status": "Pending",
+   "type": "Exploration Release Area"
+  }
+ }
+}

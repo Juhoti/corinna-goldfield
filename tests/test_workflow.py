@@ -3,6 +3,7 @@
 No network — the MRT/LIST downloads are exercised only by a real local run.
     pip install pytest && pytest
 """
+import json
 import sys
 from pathlib import Path
 
@@ -161,6 +162,47 @@ def test_field_bbox_excludes_outliers():
     )
     minx, miny, maxx, maxy = cw.field_bbox(pts, {"far"})
     assert miny > -41.8  # the -42.4 outlier must not drag the box south
+
+
+# ---- tenure watcher ---------------------------------------------------------
+
+def test_diff_states():
+    import tenure_watch as tw
+    old = {"targets": {"Frenchmans Creek": {"tenure": "ON TENEMENT",
+                                            "tenements": ["EL25/2020"]}},
+           "tenements": {"EL25/2020": {"type": "Exploration Licence",
+                                       "owner": "Georgina Resources Pty Ltd",
+                                       "status": "Granted",
+                                       "expires": "2026-12-02"}}}
+    # no change
+    assert tw.diff_states(old, json.loads(json.dumps(old))) == []
+    # the December event: licence gone, target now clear
+    new = {"targets": {"Frenchmans Creek": {"tenure": "clear", "tenements": []}},
+           "tenements": {"EL25/2020": None}}
+    lines = tw.diff_states(old, new)
+    assert any("GROUND OPENED" in l and "Frenchmans" in l for l in lines)
+    assert any("GONE from the tenement layer" in l for l in lines)
+    # renewal: expiry moves
+    renewed = json.loads(json.dumps(old))
+    renewed["tenements"]["EL25/2020"]["expires"] = "2031-12-02"
+    lines = tw.diff_states(old, renewed)
+    assert any("expires" in l and "RENEWED" in l for l in lines)
+    # new tenement over a target
+    grabbed = json.loads(json.dumps(old))
+    grabbed["targets"]["Frenchmans Creek"]["tenements"] = ["EL25/2020", "EL9/2026"]
+    assert any("tenements changed" in l for l in tw.diff_states(old, grabbed))
+
+
+def test_watch_state_matches_targets():
+    """Committed baseline must track every target with a coordinate."""
+    import tenure_watch as tw
+    if not tw.STATE_FILE.exists():
+        pytest.skip("no baseline committed yet")
+    state = json.loads(tw.STATE_FILE.read_text())
+    tgt = gpd.read_file(TARGET_FILE)
+    assert set(state["targets"]) == set(tgt[tgt.geometry.notna()]["name"])
+    for nm in tw.WATCHLIST:
+        assert nm in state["tenements"]
 
 
 # ---- the real target file ---------------------------------------------------

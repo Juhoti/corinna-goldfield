@@ -66,6 +66,25 @@ how Nonesuch Creek (open ground, ON mapped lead, surveyed ±100 m) surfaced.
 All 111 workings land in `corinna_workings.geojson` with their assessment
 columns, ready to style in QGIS.
 
+## The tenure watcher
+
+Tenure is the moving part — two licences over target creeks lapse in December
+2026 (EL25/2020 on the 2nd, EL7/2021 on the 21st). `tenure_watch.py` snapshots
+every target's tenure plus a watchlist of licences into `tenure_state.json`;
+when a run differs from the committed state it writes `tenure_diff.md` and
+updates the state. The GitHub Action (`.github/workflows/tenure-watch.yml`)
+runs it **every Monday**, commits the new state, and **opens an issue** with
+the diff — so "GROUND OPENED: Frenchmans Creek" arrives as a notification
+instead of a diary note. Run it by hand any time:
+
+```
+python3 tenure_watch.py               # fresh download (what CI does)
+python3 tenure_watch.py --no-refresh  # reuse the cached layer
+```
+
+Watch your repo notifications in December — and consider switching the cron
+to daily for that month.
+
 ## QGIS extras
 
 The LIST also serves raster layers worth loading under the results
