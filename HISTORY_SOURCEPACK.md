@@ -133,7 +133,23 @@ for the west coast fields. Browser access only.
 ### UTAS ePrints — eprints.utas.edu.au
 University of Tasmania open repository: geology theses and history papers
 covering the Corinna–Pieman area. Machine-readable search:
-`/cgi/search/simple?q=Pieman+gold&output=Atom`.
+`/cgi/search/simple?q=Pieman+gold&output=Atom`. Notable holdings from a
+2026-08 sweep:
+- *Deconstructing the Chinese sojourner: case studies of early Chinese
+  migrants to Tasmania* (eprint 15873) — context for Ah Chow, co-discoverer
+  of Browns Plains, and the Chinese diggers of the Pieman rush.
+- *Structural and metamorphic evolution of the Arthur Lineament,
+  northwestern Tasmania* (eprint 20519) — the metamorphic belt hosting the
+  Corinna field.
+- *The Tasmanian Government and the metal mining industry: an administrative
+  history 1880–1914* (eprint 16077) — the regulatory setting of the field's
+  working life.
+- *The "Father of Tasmania"? Measuring the legend of James "Philosopher"
+  Smith* (eprint 20543) — Haygarth's thesis on the discoverer of Mt Bischoff.
+- *Where in Tasmania: a compilation of place names and their histories*
+  (eprint 22682) — complements the Placenames Tasmania register.
+- *Tourmaline-rich features in the Heemskirk and Pieman Heads granites*
+  (eprint 24845) — geology of the field's southwestern margin.
 
 ### Royal Society of Tasmania — rst.org.au
 Papers and Proceedings from the 1850s onward; early geological accounts of
